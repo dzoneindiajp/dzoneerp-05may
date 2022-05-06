@@ -36,11 +36,13 @@
                     <i class="fa fa-users fa-cog"></i>
                     <span>User Management</span>
                 </a>
-                <div id="collapseOne" class="collapse {{ Request::is("admin/permissions*")? "show" : "" }}  {{ Request::is("admin/roles*")? "show" : "" }}  {{ Request::is("admin/users*")? "show" : "" }}" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                <div id="collapseOne" class="collapse {{ Request::is("admin/permissions*")? "show" : "" }}  {{ Request::is("admin/roles*")? "show" : "" }}  {{ Request::is("admin/users*")? "show" : "" }}  {{ Request::is("admin/suppliers*")? "show" : "" }}  {{ Request::is("admin/staffs*")? "show" : "" }}" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item {{ Request::is('admin/permissions')? "active" : "" }}" href="{{ route("admin.permissions.index") }}"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Permission</a>
                         <a class="collapse-item {{ Request::is('admin/roles')? "active" : "" }}" href="{{ route("admin.roles.index") }}"><i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;Roles</a>
                         <a class="collapse-item {{ Request::is('admin/users')? "active" : "" }}" href="{{ route("admin.users.index") }}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Users</a>
+                        <a class="collapse-item {{ Request::is('admin/suppliers')? "active" : "" }}" href="{{ route("admin.suppliers.index") }}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Suppliers</a>
+                        <a class="collapse-item {{ Request::is('admin/staffs')? "active" : "" }}" href="{{ route("admin.staffs.index") }}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Staffs</a>
                     </div>
                 </div>
             </li>

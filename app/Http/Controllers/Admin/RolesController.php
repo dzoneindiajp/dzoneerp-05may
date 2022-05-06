@@ -34,7 +34,7 @@ class RolesController extends Controller
 
     public function store(StoreRoleRequest $request)
     {
-        abort_if(Gate::denies('role_store'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('role_store'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $role = Role::create($request->all());
         $role->permissions()->sync($request->input('permissions', []));
 
