@@ -13,7 +13,7 @@ class StaffRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,60 @@ class StaffRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        if ($this->isMethod('put')) {
+            return [
+                'name' => [
+                    'string',
+                    'required',
+                ],
+                'email' => [
+                    'required',
+                    'unique:users,id,'.$this->user_id,
+                ],
+                'company' => [
+                    'required',
+                    'string',
+                ],
+                'destignation' => [
+                    'required',
+                    'string',
+                ],
+                'address' => [
+                    'required',
+                    'string',
+                ],
+                'status' => [
+                    'required',
+                ],
+
+            ];
+        } else {
+            return [
+                'name' => [
+                    'string',
+                    'required',
+                ],
+                'email' => [
+                    'required',
+                    'unique:users',
+                ],
+                'company' => [
+                    'required',
+                    'string',
+                ],
+                'destignation' => [
+                    'required',
+                    'string',
+                ],
+                'address' => [
+                    'required',
+                    'string',
+                ],
+                'status' => [
+                    'required',
+                ],
+
+            ];
+        }
     }
 }

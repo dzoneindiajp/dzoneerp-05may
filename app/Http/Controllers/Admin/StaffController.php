@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StaffRequest;
 use App\Http\Requests\SupplierRequest;
 use App\Models\Countries;
 use App\Models\Role;
@@ -25,7 +26,7 @@ class StaffController extends Controller
     {
         // abort_if(Gate::denies('staff_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $user = User::where('user_type',3)->pluck('id');
-        $staffs = Staff::with(['user'])->whereIn('user_id',$user)->paginate(10);
+        $staffs = Staff::with(['user'])->paginate(10);
 
         return view('admin.staffs.index', compact('staffs'));
     }
@@ -49,7 +50,7 @@ class StaffController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SupplierRequest $request)
+    public function store(StaffRequest $request)
     {
         $user = User::create([
             'name' => $request->name,
@@ -58,7 +59,7 @@ class StaffController extends Controller
             'address' => $request->address ?? '',
             'phone' => $request->phone ?? '',
             'gender' => '',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make($request->password) ?? Hash::make('12345678'),
             'user_type' => 3,
             'approved' => 1,
             'verified' => 1,
@@ -134,8 +135,8 @@ class StaffController extends Controller
             'address' => $request->address ?? '',
             'phone' => $request->phone ?? '',
             'gender' => '',
-            'password' => Hash::make('12345678'),
-            'user_type' => 2,
+            'password' => Hash::make($request->password),
+            'user_type' => 3,
             'approved' => 1,
             'verified' => 1,
         ]);
@@ -190,8 +191,20 @@ class StaffController extends Controller
     public function massDestroy(Request $request)
     {
         $staff = Staff::whereIn('id', request('ids'))->pluck('user_id');
-        User::whereIn('id', $staff)->delete();
-        Staff::whereIn('id', request('ids'))->delete();
+        $users = User::whereIn('id', $staff)->get();
+        foreach($users as $user){
+            User::find($user->id)->delete();
+        }
+
+        $staffs = Staff::whereIn('id', request('ids'))->get();
+        foreach($staffs as $staff){
+            try{
+                unlink(storage_path('app/staff/'.$staff->profile_image));
+            }catch(\Exception $e){}
+            $staff->delete();
+        }
+
+
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

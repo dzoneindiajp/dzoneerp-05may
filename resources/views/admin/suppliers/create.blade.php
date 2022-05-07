@@ -114,10 +114,10 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.supplier.fields.status_helper') }}</span>
                 </div>
-{{--
+
                 <div class="form-group">
                     <label class="required" for="password">{{ trans('cruds.supplier.fields.password') }}</label>
-                    <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password"
+                    <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" minlength="8" type="password"
                         name="password" id="password" required>
                     @if ($errors->has('password'))
                         <div class="invalid-feedback">
@@ -125,7 +125,7 @@
                         </div>
                     @endif
                     <span class="help-block">{{ trans('cruds.supplier.fields.password_helper') }}</span>
-                </div> --}}
+                </div>
 
                 <div class="form-group save_btn">
                     <button class="btn btn-danger" type="submit">

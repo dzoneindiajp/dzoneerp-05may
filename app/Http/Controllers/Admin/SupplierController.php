@@ -57,7 +57,7 @@ class SupplierController extends Controller
             'address' => $request->address ?? '',
             'phone' => $request->phone ?? '',
             'gender' => '',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make($request->password) ?? Hash::make('12345678'),
             'user_type' => 2,
             'approved' => 1,
             'verified' => 1,
@@ -67,7 +67,7 @@ class SupplierController extends Controller
         if($request->has('profile_picture')){
             $file = $request->file('profile_picture');
             $fileName =  time().'.'.$file->getClientOriginalExtension();
-            $file->storeAs('supplier', $fileName);
+            $file->move(storage_path('app/supplier'), $fileName);
         }
 
         $supplier = Supplier::create([
@@ -133,7 +133,7 @@ class SupplierController extends Controller
             'address' => $request->address ?? '',
             'phone' => $request->phone ?? '',
             'gender' => '',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make($request->password),
             'user_type' => 2,
             'approved' => 1,
             'verified' => 1,
@@ -143,7 +143,7 @@ class SupplierController extends Controller
         if($request->has('profile_picture')){
             $file = $request->file('profile_picture');
             $fileName =  time().'.'.$file->getClientOriginalExtension();
-            $file->storeAs('supplier', $fileName);
+            $file->move(storage_path('app/supplier'), $fileName);
         }else{
             $fileName = $request->old_profile_picture;
         }
@@ -188,9 +188,19 @@ class SupplierController extends Controller
 
     public function massDestroy(Request $request)
     {
-        $staff = Supplier::whereIn('id', request('ids'))->pluck('user_id');
-        User::whereIn('id', $staff)->delete();
-        Supplier::whereIn('id', request('ids'))->delete();
+        $supplier = Supplier::whereIn('id', request('ids'))->pluck('user_id');
+        $users = User::whereIn('id', $supplier)->get();
+        foreach($users as $user){
+            User::find($user->id)->delete();
+        }
+
+        $suppliers = Supplier::whereIn('id', request('ids'))->get();
+        foreach($suppliers as $supplier){
+            try{
+                unlink(storage_path('app/supplier/'.$supplier->profile_image));
+            }catch(\Exception $e){}
+            $supplier->delete();
+        }
 
 
         return response(null, Response::HTTP_NO_CONTENT);

@@ -129,22 +129,21 @@
                     <label class="required" for="profile_picture">{{ trans('Old') }}
                         {{ trans('cruds.supplier.fields.profile_picture') }}</label><br>
                     @if ($supplier->profile_image != null && file_exists(storage_path('app/supplier/' . $supplier->profile_image)))
-                        <img src="{{ URL::asset('storage/app/supplier/' . $supplier->profile_image) }}" alt="No image">
+                        <img src="{{ storage_path('app/supplier/1651816236.png') }}" style="width:50px;height:50px;border-radius:10px;">
                     @endif
-
                 </div>
 
 
-                {{-- <div class="form-group">
+                <div class="form-group">
                 <label class="required" for="password">{{ trans('cruds.supplier.fields.password') }}</label>
-                <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password" name="password" id="password">
+                <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" minlength="8" type="password" name="password" id="password">
                 @if ($errors->has('password'))
                     <div class="invalid-feedback">
                         {{ $errors->first('password') }}
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.supplier.fields.password_helper') }}</span>
-            </div> --}}
+            </div>
 
                 <div class="form-group save_btn">
                     <button class="btn btn-danger" type="submit">
