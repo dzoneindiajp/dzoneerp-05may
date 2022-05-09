@@ -36,11 +36,13 @@
                     <i class="fa fa-users fa-cog"></i>
                     <span>User Management</span>
                 </a>
-                <div id="collapseOne" class="collapse {{ Request::is("admin/permissions*")? "show" : "" }}  {{ Request::is("admin/roles*")? "show" : "" }}  {{ Request::is("admin/users*")? "show" : "" }}" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                <div id="collapseOne" class="collapse {{ Request::is("admin/permissions*")? "show" : "" }}  {{ Request::is("admin/roles*")? "show" : "" }}  {{ Request::is("admin/users*")? "show" : "" }}  {{ Request::is("admin/suppliers*")? "show" : "" }}  {{ Request::is("admin/staffs*")? "show" : "" }}" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item {{ Request::is('admin/permissions')? "active" : "" }}" href="{{ route("admin.permissions.index") }}"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Permission</a>
                         <a class="collapse-item {{ Request::is('admin/roles')? "active" : "" }}" href="{{ route("admin.roles.index") }}"><i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;Roles</a>
                         <a class="collapse-item {{ Request::is('admin/users')? "active" : "" }}" href="{{ route("admin.users.index") }}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Users</a>
+                        <a class="collapse-item {{ Request::is('admin/suppliers')? "active" : "" }}" href="{{ route("admin.suppliers.index") }}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Suppliers</a>
+                        <a class="collapse-item {{ Request::is('admin/staffs')? "active" : "" }}" href="{{ route("admin.staffs.index") }}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Staffs</a>
                     </div>
                 </div>
             </li>
@@ -60,15 +62,15 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-labelledby="headingTwo" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-labelledby="headingThree" data-target="#collapsethree" aria-expanded="true" aria-controls="collapseOne">
                     <i class="fa-fw nav-icon fas fa-cogs"></i>
                     <span>Attribute Management</span>
                 </a>
-                <div id="collapseTwo" class="collapse {{ Request::is("admin/colors*")? "show" : "" }}  {{ Request::is("admin/sizes*")? "show" : "" }}  {{ Request::is("admin/units*")? "show" : "" }}"  data-parent="#accordionSidebar">
+                <div id="collapsethree" class="collapse {{ Request::is("admin/colors*")? "show" : "" }}  {{ Request::is("admin/sizes*")? "show" : "" }}  {{ Request::is("admin/units*")? "show" : "" }}"  data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item {{ Request::is('admin/sizes')? "active" : "" }}" href="{{ route("admin.sizes.index") }}"><i class="fas fa-plus-circle" aria-hidden="true"></i>Size Manager</a>
                         <a class="collapse-item {{ Request::is('admin/colors')? "active" : "" }}"  href="{{ route("admin.colors.index") }}"><i class="fas fa-fill-drip" aria-hidden="true"></i>Color Manager</a>
-                        <a class="collapse-item {{ Request::is('admin/units')? "active" : "" }}" href="#"><i class="fas fa-weight" aria-hidden="true"></i>Unit Manager</a>
+                        <a class="collapse-item {{ Request::is('admin/units')? "active" : "" }}" href="{{ route("admin.units.index")  }}"><i class="fas fa-weight" aria-hidden="true"></i>Unit Manager</a>
                     </div>
                 </div>
             </li>

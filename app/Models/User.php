@@ -43,6 +43,7 @@ class User extends Authenticatable
         'gender',
         'country',
         'address',
+        'user_type',
         'email_verified_at',
         'approved',
         'verified',
