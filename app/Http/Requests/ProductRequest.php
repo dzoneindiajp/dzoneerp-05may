@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StaffRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,58 +25,56 @@ class StaffRequest extends FormRequest
     {
         if ($this->isMethod('put')) {
             return [
+                'catid' => [
+                    'required',
+                ],
+                'subcatid' => [
+                    'required',
+                ],
                 'name' => [
-                    'string',
-                    'required',
-                ],
-                'email' => [
-                    'required',
-                    'unique:users,id,'.$this->user_id,
-                ],
-                'company' => [
                     'required',
                     'string',
                 ],
-                'destignation' => [
+                'unitid' => [
                     'required',
                     'string',
                 ],
-                'address' => [
-                    'required',
-                    'string',
-                ],
-                'status' => [
+                'isfinishedproduct' => [
                     'required',
                 ],
-
             ];
         } else {
             return [
+                'catid' => [
+                    'required',
+                ],
+                'subcatid' => [
+                    'required',
+                ],
                 'name' => [
-                    'string',
-                    'required',
-                ],
-                'email' => [
-                    'required',
-                    'unique:users',
-                ],
-                'company' => [
                     'required',
                     'string',
                 ],
-                'destignation' => [
+                'unitid' => [
                     'required',
                     'string',
                 ],
-                'address' => [
-                    'required',
-                    'string',
-                ],
-                'status' => [
+                'image' => [
                     'required',
                 ],
-
+                'isfinishedproduct' => [
+                    'required',
+                ],
             ];
         }
+    }
+    public function messages()
+    {
+        return [
+            'catid.required' => 'Category Is Required',
+            'subcatid.required' => 'SubCategory Is Required',
+            'unitid.required' => 'Unit Is Required',
+            'isfinishedproduct.required' => 'Select any One',
+        ];
     }
 }

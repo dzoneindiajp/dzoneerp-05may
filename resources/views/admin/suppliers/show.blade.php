@@ -88,10 +88,12 @@
                 <div class="form-group">
                     <label class="required" for="profile_picture">{{ trans('Old') }}
                         {{ trans('cruds.supplier.fields.profile_picture') }}</label><br>
-                    @if ($supplier->profile_image != null && file_exists(storage_path('app/supplier/' . $supplier->profile_image)))
+                    {{-- @if ($supplier->profile_image != null && file_exists(storage_path('app/supplier/' . $supplier->profile_image)))
                         <img src="{{ URL::asset('storage/app/supplier/' . $supplier->profile_image) }}" alt="No image">
-                    @endif
-
+                    @endif --}}
+                    @if ($supplier->profile_image != null && file_exists(public_path('app/supplier/' . $supplier->profile_image)))
+                    <img src="{{ asset('app/supplier/' . $supplier->profile_image) }}" alt="No image" height="100" width="140">
+                @endif
                 </div>
 
                 <div class="form-group">

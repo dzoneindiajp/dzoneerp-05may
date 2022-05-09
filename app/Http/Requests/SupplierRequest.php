@@ -23,7 +23,7 @@ class SupplierRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->method('put')) {
+        if ($this->isMethod('put')) {
             return [
                 'name' => [
                     'string',

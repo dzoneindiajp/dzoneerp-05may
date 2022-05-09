@@ -16,15 +16,15 @@ border-spacing: 0;
 @can('user_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.staffs.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.staff.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.vendors.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.vendor.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
 <div class="card w-100">
     <div class="card-header">
-        {{ trans('cruds.staff.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.vendor.title_singular') }} {{ trans('global.list') }}
     </div>
 
 
@@ -37,25 +37,25 @@ border-spacing: 0;
 
                         </th>
                         <th>
-                            {{ trans('cruds.staff.fields.id') }}
+                            {{ trans('cruds.vendor.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.staff.fields.name') }}
+                            {{ trans('cruds.vendor.fields.name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.staff.fields.email') }}
+                            {{ trans('cruds.vendor.fields.email') }}
                         </th>
                         <th>
-                            {{ trans('cruds.staff.fields.company') }}
+                            {{ trans('cruds.vendor.fields.company') }}
                         </th>
                         <th>
-                            {{ trans('cruds.staff.fields.address') }}
+                            {{ trans('cruds.vendor.fields.address') }}
                         </th>
                         <th>
-                            {{ trans('cruds.staff.fields.destignation') }}
+                            {{ trans('cruds.vendor.fields.destignation') }}
                         </th>
                         <th>
-                            {{ trans('cruds.staff.fields.status') }}
+                            {{ trans('cruds.vendor.fields.status') }}
                         </th>
                         <th>
                             Action
@@ -64,50 +64,50 @@ border-spacing: 0;
                 </thead>
                 <tbody>
 
-                    @foreach($staffs as $key => $staff)
-                        <tr data-entry-id="{{ $staff->id }}">
+                    @foreach($vendors as $key => $vendor)
+                        <tr data-entry-id="{{ $vendor->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $staff->id ?? '' }}
+                                {{ $vendor->id ?? '' }}
                             </td>
                             <td>
-                                {{ $staff->name ?? '' }}
+                                {{ $vendor->name ?? '' }}
                             </td>
                             <td>
-                                {{ $staff->email ?? '' }}
+                                {{ $vendor->email ?? '' }}
                             </td>
                             <td>
-                                {{ $staff->company_name ?? '' }}
+                                {{ $vendor->company_name ?? '' }}
                             </td>
                             <td>
-                                {{ $staff->address ?? '' }}
+                                {{ $vendor->address ?? '' }}
                             </td>
                             <td>
-                                {{ $staff->destignation ?? '' }}
+                                {{ $vendor->destignation ?? '' }}
                             </td>
                             <td>
-                                <span style="display:none">{{ $staff->status ?? '' }}</span>
-                                <input type="checkbox" disabled="disabled" {{ $staff->status ? 'checked' : '' }}>
+                                <span style="display:none">{{ $vendor->status ?? '' }}</span>
+                                <input type="checkbox" disabled="disabled" {{ $vendor->status ? 'checked' : '' }}>
 
                             </td>
 
                             <td>
                                 @can('user_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.staffs.show', $staff->id) }}">
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.vendors.show', $vendor->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
                                 @can('user_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.staffs.edit', $staff->id) }}">
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.vendors.edit', $vendor->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
                                 @can('user_delete')
-                                    <form action="{{ route('admin.staffs.destroy', $staff->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                    <form action="{{ route('admin.vendors.destroy', $vendor->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -119,7 +119,7 @@ border-spacing: 0;
                         </tr>
                     @endforeach
                 </tbody>
-                {{ $staffs->links() }}
+                {{ $vendors->links() }}
             </table>
         </div>
     </div>
@@ -137,7 +137,7 @@ border-spacing: 0;
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.staffs.massDestroy') }}",
+    url: "{{ route('admin.vendors.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {

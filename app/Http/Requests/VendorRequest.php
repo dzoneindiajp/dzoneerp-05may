@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StaffRequest extends FormRequest
+class VendorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -51,6 +51,7 @@ class StaffRequest extends FormRequest
 
             ];
         } else {
+
             return [
                 'name' => [
                     'string',

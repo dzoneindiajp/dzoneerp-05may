@@ -106,7 +106,7 @@
                             {{ $errors->first('profile_picture') }}
                         </div>
                     @endif
-                    <input type="hidden" id="old_profile_picture" name="old_profile_picture" value="{{ $supplier->profile_picture }}">
+                    <input type="hidden" id="old_profile_picture" name="old_profile_picture" value="{{ $supplier->profile_image }}">
                             <span class="help-block">{{ trans('cruds.supplier.fields.profile_picture_helper') }}</span>
                 </div>
 
@@ -128,9 +128,12 @@
                 <div class="form-group">
                     <label class="required" for="profile_picture">{{ trans('Old') }}
                         {{ trans('cruds.supplier.fields.profile_picture') }}</label><br>
-                    @if ($supplier->profile_image != null && file_exists(storage_path('app/supplier/' . $supplier->profile_image)))
+                    {{-- @if ($supplier->profile_image != null && file_exists(storage_path('app/supplier/' . $supplier->profile_image)))
                         <img src="{{ storage_path('app/supplier/1651816236.png') }}" style="width:50px;height:50px;border-radius:10px;">
-                    @endif
+                    @endif --}}
+                    @if ($supplier->profile_image != null && file_exists(public_path('app/supplier/' . $supplier->profile_image)))
+                    <img src="{{ asset('app/supplier/' . $supplier->profile_image) }}" alt="No image" height="100" width="140">
+                @endif
                 </div>
 
 

@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StaffRequest;
-use App\Http\Requests\SupplierRequest;
 use App\Models\Countries;
 use App\Models\Role;
 use App\Models\Staff;
 use App\Models\Supplier;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
@@ -25,7 +25,7 @@ class StaffController extends Controller
     public function index()
     {
         // abort_if(Gate::denies('staff_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $user = User::where('user_type',3)->pluck('id');
+        $user = User::where('user_type', 3)->pluck('id');
         $staffs = Staff::with(['user'])->paginate(10);
 
         return view('admin.staffs.index', compact('staffs'));
@@ -55,7 +55,7 @@ class StaffController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'country' => $request->country ?? '' ,
+            'country' => $request->country ?? '',
             'address' => $request->address ?? '',
             'phone' => $request->phone ?? '',
             'gender' => '',
@@ -66,10 +66,11 @@ class StaffController extends Controller
         ]);
 
         $fileName = null;
-        if($request->has('profile_picture')){
+        if ($request->has('profile_picture')) {
             $file = $request->file('profile_picture');
-            $fileName =  time().'.'.$file->getClientOriginalExtension();
-            $file->storeAs('staff', $fileName);
+            $fileName =  time() . '.' . $file->getClientOriginalExtension();
+            // $file->storeAs('staff', $fileName);
+            $file->move(public_path('app/staff/'), $fileName);
         }
 
         $staff = Staff::create([
@@ -112,10 +113,10 @@ class StaffController extends Controller
     public function edit($id)
     {
         // abort_if(Gate::denies('staff_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $staff = Staff::with(['user'])->where('id',$id)->first();
+        $staff = Staff::with(['user'])->where('id', $id)->first();
         $countries = Countries::all();
 
-        return view('admin.staffs.edit', compact('staff','countries'));
+        return view('admin.staffs.edit', compact('staff', 'countries'));
     }
 
     /**
@@ -125,13 +126,13 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SupplierRequest $request, $id)
+    public function update(StaffRequest $request, $id)
     {
         $staff = Staff::find($id);
         $user = User::find($staff->user_id)->update([
             'name' => $request->name,
             'email' => $request->email,
-            'country' => $request->country ?? '' ,
+            'country' => $request->country ?? '',
             'address' => $request->address ?? '',
             'phone' => $request->phone ?? '',
             'gender' => '',
@@ -142,11 +143,18 @@ class StaffController extends Controller
         ]);
 
         $fileName = null;
-        if($request->has('profile_picture')){
+        if ($request->has('profile_picture')) {
             $file = $request->file('profile_picture');
-            $fileName =  time().'.'.$file->getClientOriginalExtension();
-            $file->storeAs('staff', $fileName);
-        }else{
+            try {
+                // unlink(storage_path('app/staff/' . $request->old_profile_picture));
+                unlink(public_path('app/staff/' . $request->old_profile_picture));
+            } catch (Exception $e) {
+            }
+
+            $fileName =  time() . '.' . $file->getClientOriginalExtension();
+            // $file->storeAs('staff', $fileName);
+            $file->move(public_path('app/staff/'), $fileName);
+        } else {
             $fileName = $request->old_profile_picture;
         }
 
@@ -177,11 +185,12 @@ class StaffController extends Controller
         // abort_if(Gate::denies('staff_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $staff = Staff::find($id);
         $user = User::find($staff->user_id);
-        $user->delete();
+        $user->forceDelete();
 
-        try{
-            unlink(storage_path('app/staff/'.$staff->profile_image));
-        }catch(\Exception $e){}
+        try {
+            unlink(storage_path('app/staff/' . $staff->profile_image));
+        } catch (\Exception $e) {
+        }
 
         $staff->delete();
 
@@ -192,19 +201,18 @@ class StaffController extends Controller
     {
         $staff = Staff::whereIn('id', request('ids'))->pluck('user_id');
         $users = User::whereIn('id', $staff)->get();
-        foreach($users as $user){
-            User::find($user->id)->delete();
+        foreach ($users as $user) {
+            User::find($user->id)->forceDelete();
         }
 
         $staffs = Staff::whereIn('id', request('ids'))->get();
-        foreach($staffs as $staff){
-            try{
-                unlink(storage_path('app/staff/'.$staff->profile_image));
-            }catch(\Exception $e){}
+        foreach ($staffs as $staff) {
+            try {
+                unlink(storage_path('app/staff/' . $staff->profile_image));
+            } catch (\Exception $e) {
+            }
             $staff->delete();
         }
-
-
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

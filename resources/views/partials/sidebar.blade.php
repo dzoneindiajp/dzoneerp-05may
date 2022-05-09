@@ -36,19 +36,20 @@
                     <i class="fa fa-users fa-cog"></i>
                     <span>User Management</span>
                 </a>
-                <div id="collapseOne" class="collapse {{ Request::is("admin/permissions*")? "show" : "" }}  {{ Request::is("admin/roles*")? "show" : "" }}  {{ Request::is("admin/users*")? "show" : "" }}  {{ Request::is("admin/suppliers*")? "show" : "" }}  {{ Request::is("admin/staffs*")? "show" : "" }}" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                <div id="collapseOne" class="collapse {{ Request::is("admin/permissions*")? "show" : "" }}  {{ Request::is("admin/roles*")? "show" : "" }}  {{ Request::is("admin/users*")? "show" : "" }}  {{ Request::is("admin/suppliers*")? "show" : "" }}  {{ Request::is("admin/staffs*")? "show" : "" }}  {{ Request::is("admin/vendors*")? "show" : "" }}" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item {{ Request::is('admin/permissions')? "active" : "" }}" href="{{ route("admin.permissions.index") }}"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Permission</a>
                         <a class="collapse-item {{ Request::is('admin/roles')? "active" : "" }}" href="{{ route("admin.roles.index") }}"><i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;Roles</a>
-                        <a class="collapse-item {{ Request::is('admin/users')? "active" : "" }}" href="{{ route("admin.users.index") }}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Users</a>
-                        <a class="collapse-item {{ Request::is('admin/suppliers')? "active" : "" }}" href="{{ route("admin.suppliers.index") }}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Suppliers</a>
+                        <a class="collapse-item {{ Request::is('admin/users')? "active" : "" }}" href="{{ route("admin.users.index") }}"><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;Users</a>
+                        <a class="collapse-item {{ Request::is('admin/suppliers')? "active" : "" }}" href="{{ route("admin.suppliers.index") }}"><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;Suppliers</a>
                         <a class="collapse-item {{ Request::is('admin/staffs')? "active" : "" }}" href="{{ route("admin.staffs.index") }}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Staffs</a>
+                        <a class="collapse-item {{ Request::is('admin/vendors')? "active" : "" }}" href="{{ route("admin.vendors.index") }}"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Vendors</a>
                     </div>
                 </div>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-labelledby="headingTwo" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                <a class="nav-link collapsed {{ Request::is("admin/products*")? "show" : "" }} " href="#" data-toggle="collapse" aria-labelledby="headingTwo" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
                     <i class="fa-fw nav-icon fas fa-cogs"></i>
                     <span>Product</span>
                 </a>
@@ -56,6 +57,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route("admin.categories.index") }}"><i class="fas fa-plus-circle" aria-hidden="true"></i>&nbsp;Category</a>
                         <a class="collapse-item"  href="{{ route("admin.subcategory.index") }}"><i class="fas fa-fill-drip" aria-hidden="true"></i>&nbsp;Sub Category</a>
+                        <a class="collapse-item" href="{{ route("admin.products.index") }}"><i class="fas fa-plus-circle" aria-hidden="true"></i>&nbsp;Products</a>
                         {{-- <a class="collapse-item" href="#"><i class="fas fa-weight" aria-hidden="true"></i>Weight Manager</a> --}}
                     </div>
                 </div>

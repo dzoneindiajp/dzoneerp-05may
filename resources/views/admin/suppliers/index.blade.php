@@ -154,7 +154,8 @@ border-spacing: 0;
         $.ajax({
           method: 'POST',
           url: config.url,
-          data: { ids: ids, _method: 'DELETE' }})
+          data: { "_token": "{{ csrf_token() }}",
+          ids: ids, _method: 'DELETE' }})
           .done(function () { location.reload() })
       }
     }

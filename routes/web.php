@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
+
+Route::get('/1122', function () {
+    return view('new');
+});
+
 // No Permission
 Route::get('/403', function () {
     return view('errors.404');
@@ -24,7 +29,7 @@ Route::get('/home', function () {
     return redirect()->route('admin.home');
 });
 
-Route::get('logout',[HomeController::class,'logout'])->name('logout');
+// Route::get('logout',[HomeController::class,'logout'])->name('logout');
 
 Route::get('userVerification/{token}', 'UserVerificationController@approve')->name('userVerification');
 Auth::routes();
@@ -51,11 +56,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('staffs/destroy', 'StaffController@massDestroy')->name('staffs.massDestroy');
     Route::resource('staffs', 'StaffController');
 
+    //vendors
+    Route::delete('vendors/destroy', 'VendorController@massDestroy')->name('vendors.massDestroy');
+    Route::resource('vendors','VendorController');
+
     //Categories
     Route::resource('categories','CategoryController');
 
     // SubCategory
     Route::resource('subcategory','SubcategoryController');
+
+    // Product
+    Route::post('products/getsubCategory', 'ProductController@getsubCategory')->name('products.getsubCategory');
+    Route::resource('products','ProductController');
+
     // Sizes
     Route::resource('sizes', 'SizesController');
 
