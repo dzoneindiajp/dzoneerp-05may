@@ -70,6 +70,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('products/getsubCategory', 'ProductController@getsubCategory')->name('products.getsubCategory');
     Route::resource('products','ProductController');
 
+    // purchases
+    Route::post('purchases/getUsers', 'PurchaseController@getUsers')->name('purchases.getUsers');
+    Route::resource('purchases','PurchaseController');
+
     // Sizes
     Route::resource('sizes', 'SizesController');
 

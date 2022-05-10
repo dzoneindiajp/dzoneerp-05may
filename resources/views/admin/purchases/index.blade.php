@@ -15,15 +15,15 @@
 
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.products.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.product.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.purchases.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.purchase.title_singular') }}
             </a>
         </div>
     </div>
 
     <div class="card w-100">
         <div class="card-header">
-            {{ trans('cruds.product.title_singular') }} {{ trans('global.list') }}
+            {{ trans('cruds.purchase.title_singular') }} {{ trans('global.list') }}
         </div>
 
         <div class="card-body w-100">
@@ -33,22 +33,22 @@
                         <tr>
 
                             <th>
-                                {{ trans('cruds.product.fields.id') }}
+                                {{ trans('cruds.purchase.fields.id') }}
                             </th>
                             <th>
-                                {{ trans('cruds.product.fields.category') }}
+                                {{ trans('cruds.purchase.fields.date') }}
                             </th>
                             <th>
-                                {{ trans('cruds.product.fields.subcategory') }}
+                                {{ trans('cruds.purchase.fields.usertype') }}
                             </th>
                             <th>
-                                {{ trans('cruds.product.fields.name') }}
+                                {{ trans('cruds.purchase.fields.qty') }}
                             </th>
                             <th>
-                                {{ trans('cruds.product.fields.unit') }}
+                                {{ trans('cruds.purchase.fields.grandtotal') }}
                             </th>
                             <th>
-                                {{ trans('cruds.product.fields.isfinishedproduct') }}
+                                {{ trans('cruds.purchase.fields.note') }}
                             </th>
                             <th>
                                 Action
@@ -59,44 +59,51 @@
                         @php
                             $i = 0;
                         @endphp
-                        @foreach ($products as $c)
+                        @foreach ($purchases as $c)
                             <tr>
                                 <td>
                                     {{ ++$i }}
                                 </td>
                                 <td>
-                                    {{ $c->category->name }}
+                                    {{ $c->purchase_date }}
                                 </td>
                                 <td>
-                                    {{ $c->subcategory->name }}
-                                </td>
-                                <td>
-                                    {{ $c->product_name }}
-                                </td>
-                                <td>
-                                    {{ $c->unit->name }}
-                                </td>
-                                <td>
-                                    @if ($c->isfinishedproduct == 0)
-                                        <label class="badge badge-info"> NO </label>
-                                    @else
-                                        <label class="badge badge-primary"> YES </label>
+                                    @if ($c->user_type == 0)
+                                        Supplier
+                                        @else
+                                        Vendor
                                     @endif
                                 </td>
+                                <td>
+                                    @php
+                                        $qty = 0;
+                                    @endphp
+
+                                    @foreach (json_decode($c->product_qty, true) as $prod)
+                                        @php $qty = $qty + $prod @endphp
+                                    @endforeach
+                                    {{ $qty }}
+                                </td>
+                                <td>
+                                    {{ $c->grand_total }}
+                                </td>
+                                <td>
+                                    {{ $c->purchase_note }}
+                                </td>
 
                                 <td>
 
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.products.show', $c->id) }}">
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.purchases.show', $c->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
 
 
 
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.products.edit', $c->id) }}">
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.purchases.edit', $c->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
 
-                                    <form action="{{ route('admin.products.destroy', $c->id) }}" method="POST"
+                                    <form action="{{ route('admin.purchases.destroy', $c->id) }}" method="POST"
                                         onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
                                         style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">

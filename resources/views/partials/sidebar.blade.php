@@ -49,15 +49,16 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed {{ Request::is("admin/products*")? "show" : "" }} " href="#" data-toggle="collapse" aria-labelledby="headingTwo" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
-                    <i class="fa-fw nav-icon fas fa-cogs"></i>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-labelledby="headingTwo" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                    <i class="fa-fw nav-icon fas fa-shopping-bag"></i>
                     <span>Product</span>
                 </a>
-                <div id="collapseTwo" class="collapse"  data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse {{ Request::is("admin/products*")? "show" : "" }}  {{ Request::is("admin/purchases*")? "show" : "" }} "  data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route("admin.categories.index") }}"><i class="fas fa-plus-circle" aria-hidden="true"></i>&nbsp;Category</a>
                         <a class="collapse-item"  href="{{ route("admin.subcategory.index") }}"><i class="fas fa-fill-drip" aria-hidden="true"></i>&nbsp;Sub Category</a>
-                        <a class="collapse-item" href="{{ route("admin.products.index") }}"><i class="fas fa-plus-circle" aria-hidden="true"></i>&nbsp;Products</a>
+                        <a class="collapse-item {{ Request::is('admin/products')? "active" : "" }}" href="{{ route("admin.products.index") }}"><i class="fas fa-shopping-bag" aria-hidden="true"></i>&nbsp;Products</a>
+                        <a class="collapse-item {{ Request::is('admin/purchases')? "active" : "" }}" href="{{ route("admin.purchases.index") }}"><i class="fas fa-money" aria-hidden="true"></i>&nbsp;Purchases</a>
                         {{-- <a class="collapse-item" href="#"><i class="fas fa-weight" aria-hidden="true"></i>Weight Manager</a> --}}
                     </div>
                 </div>
