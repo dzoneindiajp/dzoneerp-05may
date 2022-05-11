@@ -41,9 +41,9 @@
                         <a class="collapse-item {{ Request::is('admin/permissions')? "active" : "" }}" href="{{ route("admin.permissions.index") }}"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Permission</a>
                         <a class="collapse-item {{ Request::is('admin/roles')? "active" : "" }}" href="{{ route("admin.roles.index") }}"><i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;Roles</a>
                         <a class="collapse-item {{ Request::is('admin/users')? "active" : "" }}" href="{{ route("admin.users.index") }}"><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;Users</a>
-                        <a class="collapse-item {{ Request::is('admin/suppliers')? "active" : "" }}" href="{{ route("admin.suppliers.index") }}"><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;Suppliers</a>
-                        <a class="collapse-item {{ Request::is('admin/staffs')? "active" : "" }}" href="{{ route("admin.staffs.index") }}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Staffs</a>
-                        <a class="collapse-item {{ Request::is('admin/vendors')? "active" : "" }}" href="{{ route("admin.vendors.index") }}"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Vendors</a>
+                        <a class="collapse-item {{ Request::is('admin/suppliers*')? "active" : "" }}" href="{{ route("admin.suppliers.index") }}"><i class="fa fa-address-card" aria-hidden="true"></i>&nbsp;Suppliers</a>
+                        <a class="collapse-item {{ Request::is('admin/staffs*')? "active" : "" }}" href="{{ route("admin.staffs.index") }}"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Staffs</a>
+                        <a class="collapse-item {{ Request::is('admin/vendors*')? "active" : "" }}" href="{{ route("admin.vendors.index") }}"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Vendors</a>
                     </div>
                 </div>
             </li>
@@ -53,16 +53,30 @@
                     <i class="fa-fw nav-icon fas fa-shopping-bag"></i>
                     <span>Product</span>
                 </a>
-                <div id="collapseTwo" class="collapse {{ Request::is("admin/products*")? "show" : "" }}  {{ Request::is("admin/purchases*")? "show" : "" }} "  data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse {{ Request::is("admin/products*")? "show" : "" }} "  data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route("admin.categories.index") }}"><i class="fas fa-plus-circle" aria-hidden="true"></i>&nbsp;Category</a>
                         <a class="collapse-item"  href="{{ route("admin.subcategory.index") }}"><i class="fas fa-fill-drip" aria-hidden="true"></i>&nbsp;Sub Category</a>
-                        <a class="collapse-item {{ Request::is('admin/products')? "active" : "" }}" href="{{ route("admin.products.index") }}"><i class="fas fa-shopping-bag" aria-hidden="true"></i>&nbsp;Products</a>
-                        <a class="collapse-item {{ Request::is('admin/purchases')? "active" : "" }}" href="{{ route("admin.purchases.index") }}"><i class="fas fa-money" aria-hidden="true"></i>&nbsp;Purchases</a>
+                        <a class="collapse-item {{ Request::is('admin/products*')? "active" : "" }}" href="{{ route("admin.products.index") }}"><i class="fas fa-shopping-bag" aria-hidden="true"></i>&nbsp;Products</a>
                         {{-- <a class="collapse-item" href="#"><i class="fas fa-weight" aria-hidden="true"></i>Weight Manager</a> --}}
                     </div>
                 </div>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-labelledby="headingFour" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseOne">
+                    <i class="fa-fw nav-icon fas fa-money"></i>
+                    <span>Purchase</span>
+                </a>
+                <div id="collapseFour" class="collapse {{ Request::is("admin/purchases*")? "show" : "" }}  {{ Request::is("admin/returnpurchases*")? "show" : "" }}  {{ Request::is("admin/damagepurchases*")? "show" : "" }} "  data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item {{ Request::is('admin/purchases*')? "active" : "" }}" href="{{ route("admin.purchases.index") }}"><i class="fas fa-money" aria-hidden="true"></i>&nbsp;Purchases</a>
+                        <a class="collapse-item {{ Request::is('admin/returnpurchases*')? "active" : "" }}" href="{{ route("admin.returnpurchases.index") }}"><i class="fas fa-refresh" aria-hidden="true"></i>&nbsp;Return Purchases</a>
+                        <a class="collapse-item {{ Request::is('admin/damagepurchases*')? "active" : "" }}" href="{{ route("admin.damagepurchases.index") }}"><i class="fas fa-times" aria-hidden="true"></i>&nbsp;Damage Purchases</a>
+                    </div>
+                </div>
+            </li>
+
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-labelledby="headingThree" data-target="#collapsethree" aria-expanded="true" aria-controls="collapseOne">

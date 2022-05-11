@@ -78,8 +78,12 @@ class PurchaseController extends Controller
             // $file->storeAs('product', $fileName);
             $file->move(public_path('app/purchase/'), $fileName);
         }
+        $pur = Purchase::latest()->first('id');
+        $id = $pur->id;
+        $purchase_code = 'PUR - '.($id + 1);
 
-        Purchase::create([
+        $purchase = Purchase::create([
+            'purchase_code'=> $purchase_code,
             'purchase_date' => date('Y-m-d',strtotime($request->date)),
             'user_type' => $request->usertype,
             'user_id' => $request->userid,
@@ -94,6 +98,7 @@ class PurchaseController extends Controller
             'grand_total' => $request->grandtotal,
             'purchase_note' => $request->note,
             'purchase_image' => $fileName,
+            'status' => $request->status,
         ]);
 
         return redirect()->route('admin.purchases.index');
@@ -170,6 +175,7 @@ class PurchaseController extends Controller
             'grand_total' => $request->grandtotal,
             'purchase_note' => $request->note,
             'purchase_image' => $fileName,
+            'status' => $request->status,
         ]);
 
         return redirect()->route('admin.purchases.index');

@@ -39,14 +39,14 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.purchase.fields.date_helper') }}</span>
                 </div>
-                <br>
+
                 <div class="form-group">
-                    <label class="required"
-                        for="usertype">{{ trans('cruds.purchase.fields.usertype') }}</label><br>
-                    <input type="radio" name="usertype" class="usertype" value="0"
-                        @if ($purchase->user_type == 0) checked @endif> Supplier
-                    <input type="radio" name="usertype" class="usertype" value="1"
-                        @if ($purchase->user_type == 1) checked @endif> Vendor
+                    <label class="required" for="usertype">{{ trans('cruds.purchase.fields.usertype') }}</label>
+                    <select class="form-control select2 {{ $errors->has('usertype') ? 'is-invalid' : '' }} usertype" name="usertype"
+                        id="usertype" required>
+                        <option value="0" @if ($purchase->user_type == 0) selected @endif>Supplier</option>
+                        <option value="1" @if ($purchase->user_type == 1) selected @endif>Vendor</option>
+                    </select>
                     @if ($errors->has('usertype'))
                         <div class="invalid-feedback">
                             {{ $errors->first('usertype') }}
@@ -79,20 +79,21 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.purchase.fields.user_helper') }}</span>
                 </div>
-                <div class="form-group w-100 m-2">
-                    <table class="table table-responsive">
-                        <thead class="w-100">
+
+                <div class="form-group w-100 m-2  table-responsive">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <th>{{ trans('cruds.purchase.fields.product') }}</th>
-                                <th>{{ trans('cruds.purchase.fields.qty') }}</th>
+                                <th width="20%">{{ trans('cruds.purchase.fields.product') }}</th>
+                                <th width="10%">{{ trans('cruds.purchase.fields.qty') }}</th>
                                 <th>{{ trans('cruds.purchase.fields.unit') }}</th>
                                 <th>{{ trans('cruds.purchase.fields.unitprice') }}</th>
                                 <th>{{ trans('cruds.purchase.fields.discount') }} %</th>
-                                <th>{{ trans('cruds.purchase.fields.producttotal') }}</th>
+                                <th width="15%">{{ trans('cruds.purchase.fields.producttotal') }}</th>
                                 <th>{{ trans('Action') }}</th>
                             </tr>
                         </thead>
-                        <tbody class="w-100">
+                        <tbody>
                             @for ($i = 0; $i < count(json_decode($purchase->product_id, true)); $i++)
                                 <tr class="productlist">
                                     <td>
@@ -179,7 +180,8 @@
                                             type="number" name="discount[]"
                                             value="{{ old('discount', json_decode($purchase->discount, true)[$i]) }}"
                                             min="0" max="99" required>
-                                        <input type="hidden" name="discountVal[]" class="discountVal" value="{{ $dis }}">
+                                        <input type="hidden" name="discountVal[]" class="discountVal"
+                                            value="{{ $dis }}">
 
                                         @if ($errors->has('discount'))
                                             <div class="invalid-feedback">
@@ -214,6 +216,7 @@
 
                     </table>
                 </div>
+
                 <div class="form-group">
                     <label class="required" for="subtotal">{{ trans('cruds.purchase.fields.subtotal') }}</label>
                     <input readonly class="form-control {{ $errors->has('subtotal') ? 'is-invalid' : '' }} subtotal"
@@ -273,7 +276,7 @@
                 <div class="form-group">
                     <label class="required" for="note">{{ trans('cruds.purchase.fields.note') }}</label>
                     <textarea name="note" id="note" class="form-control {{ $errors->has('note') ? 'is-invalid' : '' }}"
-                        rows="4">{{ old('note', $purchase->purchase_note) }}</textarea>
+                        rows="4" required>{{ old('note', $purchase->purchase_note) }}</textarea>
                     @if ($errors->has('note'))
                         <div class="invalid-feedback">
                             {{ $errors->first('note') }}
@@ -308,17 +311,45 @@
                     <span class="help-block">{{ trans('cruds.purchase.fields.image_helper') }}</span>
                 </div>
 
+                <div class="form-group">
+                    <label class="required" for="status">{{ trans('cruds.purchase.fields.status') }}</label>
+                    <select class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status"
+                        id="status" required>
+                        <option value="1" @if ($purchase->status == 1) selected @endif>Active</option>
+                        <option value="0" @if ($purchase->status == 0) selected @endif>In-Active</option>
+                    </select>
+                    @if ($errors->has('status'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('status') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.purchase.fields.status_helper') }}</span>
+                </div>
 
                 <div class="form-group save_btn">
                     <button class="btn btn-danger" type="submit">
                         {{ trans('global.save') }}
                     </button>
+
+                    <a class="btn btn-primary" href="{{ url()->previous() }}">
+                        {{ trans('Back') }}
+                    </a>
                 </div>
             </form>
         </div>
 
     </div>
     <script type="text/javascript">
+        $('input[type="number"]').on('keypress', function(e) {
+            // if (e.which < 48 || e.which > 57) {
+            //     e.preventDefault();
+            //     return false;
+            // }
+            if ($(this).val().length > 0) {
+                $(this).val($(this).val().replace(/^0+/, ''));
+            }
+        });
+
         function calculation() {
             var total_discount = 0;
             $.each($('.productlist'), function() {
@@ -344,6 +375,7 @@
             let $clone = $tr.clone();
 
             $clone.find('input').val('');
+            $clone.find('.discount').val(00);
             $tr.after($clone);
         });
 

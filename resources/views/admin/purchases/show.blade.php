@@ -36,14 +36,14 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.purchase.fields.date_helper') }}</span>
                 </div>
-                <br>
+
                 <div class="form-group">
-                    <label class=""
-                        for="usertype">{{ trans('cruds.purchase.fields.usertype') }}</label><br>
-                    <input readonly type="radio" name="usertype" class="usertype" value="0"
-                        @if ($purchase->user_type == 0) checked @endif> Supplier
-                    <input readonly type="radio" name="usertype" class="usertype" value="1"
-                        @if ($purchase->user_type == 1) checked @endif> Vendor
+                    <label class="required" for="usertype">{{ trans('cruds.purchase.fields.usertype') }}</label>
+                    <select disabled class="form-control select2 {{ $errors->has('usertype') ? 'is-invalid' : '' }} usertype" name="usertype"
+                        id="usertype" required>
+                        <option value="0" @if ($purchase->user_type == 0) selected @endif>Supplier</option>
+                        <option value="1" @if ($purchase->user_type == 1) selected @endif>Vendor</option>
+                    </select>
                     @if ($errors->has('usertype'))
                         <div class="invalid-feedback">
                             {{ $errors->first('usertype') }}
@@ -76,19 +76,19 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.purchase.fields.user_helper') }}</span>
                 </div>
-                <div class="form-group w-100 m-2">
-                    <table class="table table-responsive">
-                        <thead class="w-100">
+                <div class="form-group w-100 m-2 table-responsive">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <th>{{ trans('cruds.purchase.fields.product') }}</th>
-                                <th>{{ trans('cruds.purchase.fields.qty') }}</th>
+                                <th width="20%">{{ trans('cruds.purchase.fields.product') }}</th>
+                                <th width="10%">{{ trans('cruds.purchase.fields.qty') }}</th>
                                 <th>{{ trans('cruds.purchase.fields.unit') }}</th>
                                 <th>{{ trans('cruds.purchase.fields.unitprice') }}</th>
                                 <th>{{ trans('cruds.purchase.fields.discount') }} %</th>
-                                <th>{{ trans('cruds.purchase.fields.producttotal') }}</th>
+                                <th width="18%">{{ trans('cruds.purchase.fields.producttotal') }}</th>
                             </tr>
                         </thead>
-                        <tbody class="w-100">
+                        <tbody>
                             @for ($i = 0; $i < count(json_decode($purchase->product_id, true)); $i++)
                                 <tr class="productlist">
                                     <td>
@@ -272,6 +272,22 @@
                             width="140">
                     @endif
                 </div>
+
+                <div class="form-group">
+                    <label class="required" for="status">{{ trans('cruds.purchase.fields.status') }}</label>
+                    <select disabled class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status"
+                        id="status" required>
+                        <option value="1" @if ($purchase->status == 1) selected @endif>Active</option>
+                        <option value="0" @if ($purchase->status == 0) selected @endif>In-Active</option>
+                    </select>
+                    @if ($errors->has('status'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('status') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.purchase.fields.status_helper') }}</span>
+                </div>
+
 
                 <div class="form-group save_btn">
                     <a class="btn btn-danger" href="{{ url()->previous() }}">

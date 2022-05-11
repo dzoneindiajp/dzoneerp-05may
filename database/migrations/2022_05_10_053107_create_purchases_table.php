@@ -15,6 +15,7 @@ class CreatePurchasesTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
+            $table->string('purchase_code')->unique();
             $table->date('purchase_date')->nullable();
             $table->tinyInteger('user_type')->comment('0 - supplier , 1 - vendor')->default(0);
             $table->bigInteger('user_id')->unsigned();

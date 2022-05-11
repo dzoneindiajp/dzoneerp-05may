@@ -74,6 +74,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('purchases/getUsers', 'PurchaseController@getUsers')->name('purchases.getUsers');
     Route::resource('purchases','PurchaseController');
 
+    // return purchases
+    Route::post('returnpurchases/getproducts', 'ReturnPurchaseController@getproducts')->name('returnpurchases.getproducts');
+    Route::resource('returnpurchases','ReturnPurchaseController');
+
+    // damage purchases
+    Route::post('damagepurchases/getproducts', 'DamagePurchaseController@getproducts')->name('damagepurchases.getproducts');
+    Route::resource('damagepurchases','DamagePurchaseController');
+
     // Sizes
     Route::resource('sizes', 'SizesController');
 

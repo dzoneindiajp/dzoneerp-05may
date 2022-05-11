@@ -24,15 +24,15 @@
 
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.purchases.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.purchase.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.returnpurchases.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.returnpurchases.title_singular') }}
             </a>
         </div>
     </div>
 
     <div class="card w-100">
         <div class="card-header">
-            {{ trans('cruds.purchase.title_singular') }} {{ trans('global.list') }}
+            {{ trans('cruds.returnpurchases.title_singular') }} {{ trans('global.list') }}
         </div>
 
         <div class="card-body w-100">
@@ -42,25 +42,28 @@
                         <tr>
 
                             <th>
-                                {{ trans('cruds.purchase.fields.id') }}
+                                {{ trans('cruds.returnpurchases.fields.id') }}
                             </th>
                             <th>
-                                {{ trans('cruds.purchase.fields.code') }}
+                                {{ trans('cruds.returnpurchases.fields.code') }}
                             </th>
                             <th>
-                                {{ trans('cruds.purchase.fields.date') }}
+                                {{ trans('cruds.returnpurchases.fields.purchase') }}
                             </th>
                             <th>
-                                {{ trans('cruds.purchase.fields.usertype') }}
+                                {{ trans('cruds.returnpurchases.fields.reason') }}
                             </th>
                             <th>
-                                {{ trans('cruds.purchase.fields.qty') }}
+                                {{ trans('cruds.returnpurchases.fields.date') }}
                             </th>
-                            <th>
-                                {{ trans('cruds.purchase.fields.grandtotal') }}
+                            <th width="8%">
+                                {{ trans('cruds.returnpurchases.fields.qty') }}
                             </th>
-                            <th>
-                                {{ trans('cruds.purchase.fields.note') }}
+                            <th width="8%">
+                                {{ trans('cruds.returnpurchases.fields.refundamount') }}
+                            </th>
+                            <th  width="20%">
+                                {{ trans('cruds.returnpurchases.fields.note') }}
                             </th>
                             <th>
                                 Action
@@ -71,56 +74,58 @@
                         @php
                             $i = 0;
                         @endphp
-                        @foreach ($purchases as $c)
+                        @foreach ($return as $c)
+
                             <tr>
                                 <td>
                                     {{ ++$i }}
                                 </td>
                                 <td>
-                                    <a class="text-decoration-none" href="{{ route('admin.purchases.edit', $c->id) }}">
-                                        {{ $c->purchase_code }}
+                                    <a class="text-decoration-none" href="{{ route('admin.returnpurchases.edit', $c->id) }}">
+                                        {{ $c->return_code }}
                                     </a>
                                 </td>
                                 <td>
-                                    {{ $c->purchase_date }}
+                                    <a class="text-decoration-none" href="{{ route('admin.purchases.show', $c->purchase_id) }}">
+                                    {{ $c->purchase->purchase_code }}
+                                    </a>
                                 </td>
                                 <td>
-                                    @if ($c->user_type == 0)
-                                        Supplier
-                                    @else
-                                        Vendor
-                                    @endif
+                                    {{ $c->return_reason ? substr($c->return_reason, 0, 25) . '...' : '' }}
+                                </td>
+                                <td>
+                                    {{ $c->return_date }}
                                 </td>
                                 <td>
                                     @php
                                         $qty = 0;
                                     @endphp
 
-                                    @foreach (json_decode($c->product_qty, true) as $prod)
+                                    @foreach (json_decode($c->returnqty, true) as $prod)
                                         @php $qty = $qty + $prod @endphp
                                     @endforeach
                                     {{ $qty }}
                                 </td>
                                 <td>
-                                    {{ $c->grand_total }}
+                                    {{ $c->return_amount }}
                                 </td>
                                 <td>
-                                    {{ $c->purchase_note ? substr($c->purchase_note, 0, 50) . '...' : '' }}
+                                    {{ $c->return_note ? substr($c->return_note, 0, 50) . '...' : '' }}
                                 </td>
 
                                 <td>
 
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.purchases.show', $c->id) }}">
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.returnpurchases.show', $c->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
 
 
 
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.purchases.edit', $c->id) }}">
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.returnpurchases.edit', $c->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
 
-                                    <form action="{{ route('admin.purchases.destroy', $c->id) }}" method="POST"
+                                    <form action="{{ route('admin.returnpurchases.destroy', $c->id) }}" method="POST"
                                         onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
                                         style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
@@ -205,7 +210,7 @@
                         // Set the fontsize for the table header
                         doc.styles.tableHeader.fontSize = 11;
                         doc.styles.tableHeader.margin = 5;
-                        doc.styles.tableHeader.background = '#228b22';
+
 
                         // Create a header object with 3 columns
                         // Left side: Logo
@@ -216,14 +221,14 @@
                                 columns: [{
                                         alignment: 'left',
                                         // italics: true,
-                                        text: 'All Purchases',
+                                        text: 'All returnpurchasess',
                                         fontSize: 18,
                                         margin: [10, 0]
                                     },
                                     // {
                                     // 	alignment: 'left',
                                     // 	fontSize: 14,
-                                    // 	text: 'All Purchases',
+                                    // 	text: 'All returnpurchasess',
                                     // }
                                 ],
                                 margin: 20
