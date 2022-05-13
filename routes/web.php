@@ -70,6 +70,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('products/getsubCategory', 'ProductController@getsubCategory')->name('products.getsubCategory');
     Route::resource('products','ProductController');
 
+    // Processings
+    Route::resource('processings','ProcessingController');
+
+    // Finished
+    Route::post('finished/getProcessing', 'FinishedController@getProcessing')->name('finished.getProcessing');
+    Route::resource('finished','FinishedController');
+
     // purchases
     Route::post('purchases/getUsers', 'PurchaseController@getUsers')->name('purchases.getUsers');
     Route::resource('purchases','PurchaseController');
@@ -82,7 +89,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('damagepurchases/getproducts', 'DamagePurchaseController@getproducts')->name('damagepurchases.getproducts');
     Route::resource('damagepurchases','DamagePurchaseController');
 
-    //
+    //purchase inventory
     Route::resource('purchaseinventory','PurchaseInventoryController');
 
     // Sizes

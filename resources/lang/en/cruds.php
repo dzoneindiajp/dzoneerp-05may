@@ -434,6 +434,58 @@ return [
             'purchase'                      => 'Purchase',
             'purchase_helper'               => '',
         ]
+    ],
+
+    'processings' => [
+        'title'           => 'Processing',
+        'title_singular'  => 'Processing Product',
+        'fields'          => [
+            'id'                            => 'ID',
+            'id_helper'                     => ' ',
+            'code'                          => 'Purchased code',
+            'code_helper'                   => '',
+            'product'                       => 'Purchased Product',
+            'product_helper'                => '',
+            'startdate'                     => 'Processing Start Date',
+            'startdate_helper'              => '',
+            'enddate'                       => 'Processing End Date',
+            'enddate_helper'                => '',
+            'note'                          => 'Processing Note',
+            'note_helper'                   => '',
+            'image'                         => 'Processing Image',
+            'image_helper'                  => '',
+            'status'                        => 'Status',
+            'status_helper'                  => '',
+        ]
+    ],
+
+    'finished' => [
+        'title'           => 'Finished',
+        'title_singular'  => 'Finished Product',
+        'fields'          => [
+            'id'                            => 'ID',
+            'id_helper'                     => ' ',
+            'processing'                    => 'Processing Product',
+            'processing_helper'             => '',
+            'code'                          => 'Purchased code',
+            'code_helper'                   => '',
+            'product'                       => 'Product Name',
+            'product_helper'                => '',
+            'purchaseqty'                   => 'Purchased Quantity',
+            'purchaseqty_helper'            => '',
+            'availableqty'                  => 'Available Quantity',
+            'availableqty_helper'           => '',
+            'usedqty'                       => 'Used Quantity',
+            'usedqty_helper'                => '',
+            'date'                          => 'Finished Date',
+            'date_helper'                   => '',
+            'note'                          => 'Finished Note',
+            'note_helper'                   => '',
+            'image'                         => 'Finished Image',
+            'image_helper'                  => '',
+            'status'                        => 'Status',
+            'status_helper'                 => '',
+        ]
     ]
 
 ];

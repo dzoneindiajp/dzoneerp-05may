@@ -49,21 +49,6 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-labelledby="headingTwo" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
-                    <i class="fa-fw nav-icon fas fa-shopping-bag"></i>
-                    <span>Product</span>
-                </a>
-                <div id="collapseTwo" class="collapse {{ Request::is("admin/products*")? "show" : "" }} "  data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route("admin.categories.index") }}"><i class="fas fa-plus-circle" aria-hidden="true"></i>&nbsp;Category</a>
-                        <a class="collapse-item"  href="{{ route("admin.subcategory.index") }}"><i class="fas fa-fill-drip" aria-hidden="true"></i>&nbsp;Sub Category</a>
-                        <a class="collapse-item {{ Request::is('admin/products*')? "active" : "" }}" href="{{ route("admin.products.index") }}"><i class="fas fa-shopping-bag" aria-hidden="true"></i>&nbsp;Products</a>
-                        {{-- <a class="collapse-item" href="#"><i class="fas fa-weight" aria-hidden="true"></i>Weight Manager</a> --}}
-                    </div>
-                </div>
-            </li>
-
-            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-labelledby="headingFour" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseOne">
                     <i class="fa-fw nav-icon fas fa-money"></i>
                     <span>Purchase</span>
@@ -78,6 +63,21 @@
                 </div>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-labelledby="headingTwo" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                    <i class="fa-fw nav-icon fas fa-shopping-bag"></i>
+                    <span>Product</span>
+                </a>
+                <div id="collapseTwo" class="collapse {{ Request::is("admin/products*")? "show" : "" }} {{ Request::is("admin/processings*")? "show" : "" }} {{ Request::is("admin/finished*")? "show" : "" }} "  data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route("admin.categories.index") }}"><i class="fas fa-plus-circle" aria-hidden="true"></i>&nbsp;Category</a>
+                        <a class="collapse-item"  href="{{ route("admin.subcategory.index") }}"><i class="fas fa-fill-drip" aria-hidden="true"></i>&nbsp;Sub Category</a>
+                        <a class="collapse-item {{ Request::is('admin/products*')? "active" : "" }}" href="{{ route("admin.products.index") }}"><i class="fas fa-shopping-bag" aria-hidden="true"></i>&nbsp;Products</a>
+                        <a class="collapse-item {{ Request::is('admin/processings*')? "active" : "" }}" href="{{ route("admin.processings.index") }}"><i class="fas fa-tools" aria-hidden="true"></i>&nbsp;Processing</a>
+                        <a class="collapse-item {{ Request::is('admin/finished*')? "active" : "" }}" href="{{ route("admin.finished.index") }}"><i class="fas fa-server" aria-hidden="true"></i>&nbsp;Finished</a>
+                    </div>
+                </div>
+            </li>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-labelledby="headingThree" data-target="#collapsethree" aria-expanded="true" aria-controls="collapseOne">

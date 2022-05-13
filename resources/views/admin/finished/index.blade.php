@@ -24,15 +24,15 @@
 
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.purchases.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.purchase.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.finished.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.finished.title_singular') }}
             </a>
         </div>
     </div>
 
     <div class="card w-100">
         <div class="card-header">
-            {{ trans('cruds.purchase.title_singular') }} {{ trans('global.list') }}
+            {{ trans('cruds.finished.title_singular') }} {{ trans('global.list') }}
         </div>
 
         <div class="card-body w-100">
@@ -41,25 +41,19 @@
                     <thead>
                         <tr>
                             <th>
-                                {{ trans('cruds.purchase.fields.id') }}
+                                {{ trans('cruds.finished.fields.id') }}
                             </th>
                             <th>
-                                {{ trans('cruds.purchase.fields.code') }}
+                                {{ trans('cruds.finished.fields.code') }}
                             </th>
                             <th>
-                                {{ trans('cruds.purchase.fields.date') }}
+                                {{ trans('cruds.finished.fields.product') }}
                             </th>
                             <th>
-                                {{ trans('cruds.purchase.fields.user') }}
+                                {{ trans('cruds.finished.fields.date') }}
                             </th>
                             <th>
-                                {{ trans('cruds.purchase.fields.qty') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.purchase.fields.grandtotal') }}
-                            </th>
-                            <th width='5%'>
-                                {{ trans('cruds.purchase.fields.note') }}
+                                {{ trans('cruds.finished.fields.note') }}
                             </th>
                             <th>
                                 Action
@@ -70,57 +64,41 @@
                         @php
                             $i = 0;
                         @endphp
-                        @foreach ($purchases as $c)
+                        @foreach ($finished as $c)
                             <tr>
                                 <td>
                                     {{ ++$i }}
                                 </td>
                                 <td>
-                                    <a class="text-decoration-none" href="{{ route('admin.purchases.edit', $c->id) }}">
-                                        {{ $c->purchase_code }}
+                                    <a class="text-decoration-none" href="{{ route('admin.finished.edit', $c->id) }}">
+                                        {{ $c->finished_code }}
                                     </a>
                                 </td>
                                 <td>
-                                    {{ $c->purchase_date }}
-                                </td>
-
-                                <td>
-                                    @if($c->user_type == 0)
-                                        {{ \App\Models\Supplier::where('id',$c->user_id)->first()->name ?? '--' }}
-                                    @else
-                                        {{ \App\Models\Vendor::where('id',$c->user_id)->first()->name ?? '--' }}
-                                    @endif
+                                    <a class="text-decoration-none" href="{{ route('admin.processings.edit', $c->processing->id) }}">
+                                        {{ $c->processing->processing_code }}
+                                    </a>
                                 </td>
                                 <td>
-                                    @php
-                                        $qty = 0;
-                                    @endphp
-
-                                    @foreach (json_decode($c->product_qty, true) as $prod)
-                                        @php $qty = $qty + $prod @endphp
-                                    @endforeach
-                                    {{ $qty }}
+                                    {{ $c->start_date }}
                                 </td>
                                 <td>
-                                    {{ $c->grand_total }}
-                                </td>
-                                <td>
-                                    {!! $c->purchase_note ? substr($c->purchase_note, 0, 50) . '...' : '' !!}
+                                    {!! $c->finished_note ? substr($c->finished_note, 0, 50) . '...' : '' !!}
                                 </td>
 
                                 <td>
 
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.purchases.show', $c->id) }}">
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.finished.show', $c->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
 
 
 
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.purchases.edit', $c->id) }}">
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.finished.edit', $c->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
 
-                                    <form action="{{ route('admin.purchases.destroy', $c->id) }}" method="POST"
+                                    <form action="{{ route('admin.finished.destroy', $c->id) }}" method="POST"
                                         onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
                                         style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
@@ -216,14 +194,14 @@
                                 columns: [{
                                         alignment: 'left',
                                         // italics: true,
-                                        text: 'All Purchases',
+                                        text: 'All Processing Products',
                                         fontSize: 18,
                                         margin: [10, 0]
                                     },
                                     // {
                                     // 	alignment: 'left',
                                     // 	fontSize: 14,
-                                    // 	text: 'All Purchases',
+                                    // 	text: 'All finished',
                                     // }
                                 ],
                                 margin: 20

@@ -80,12 +80,13 @@
                         @foreach ($return_purchase as $returnpurchase)
                             @php
                             $k = 0;
-
                             if(isset($returnpurchase)){
                                 $product_id = json_decode($returnpurchase->purchase->product_id,true);
                                 $products = \App\Models\Product::with(['unit'])->whereIn('id',$product_id)->get();
+                                $used_finished_product = \App\Models\Finished::with('processing')->where('purchase_id',$returnpurchase->purchase->id)->first();
                             }else{
                                 $products = array();
+                                $used_finished_product = array();
                             }
                             @endphp
 
@@ -98,13 +99,17 @@
                                         {{ ++$i }}
                                     </td>
                                     <td>
-                                            {{ $c->product_name }}
+                                        {{ $c->product_name }}
                                     </td>
                                     <td>
                                         {{ json_decode($returnpurchase->purchase->product_qty)[$k] }} {{ $unitName }}
                                     </td>
                                     <td>
-                                        0 {{ $unitName }}
+                                        @if (isset($used_finished_product))
+                                            {{ json_decode($used_finished_product->used_qty)[$k] }} {{ $unitName }}
+                                        @else
+                                            0 {{ $unitName }}
+                                        @endif
                                     </td>
 
                                     <td>

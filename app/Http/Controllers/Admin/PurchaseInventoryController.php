@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\DamagePurchase;
+use App\Models\Finished;
 use App\Models\Purchase;
 use App\Models\ReturnPurchase;
 use Illuminate\Http\Request;
@@ -19,11 +20,11 @@ class PurchaseInventoryController extends Controller
     public function index()
     {
         $purchase = Purchase::get();
-        $product = Purchase::get();
-        $return_purchase = ReturnPurchase::with('purchase')->get();
+        $return_purchase = ReturnPurchase::with('purchase')->orderBy('id','desc')->get();
         $damage_purchase = DamagePurchase::with('purchase')->get();
+        $used_product = Finished::with('processing')->get();
 
-        return view('admin.purchaseinventory.index',compact('purchase','return_purchase','product','damage_purchase'));
+        return view('admin.purchaseinventory.index',compact('purchase','return_purchase','damage_purchase','used_product'));
     }
 
     /**

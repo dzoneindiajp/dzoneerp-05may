@@ -81,8 +81,15 @@ class PurchaseController extends Controller
             $file->move(public_path('app/purchase/'), $fileName);
         }
         $pur = Purchase::latest()->first('id');
-        $id = $pur->id;
-        $purchase_code = 'PUR - '.($id + 1);
+
+        $pur = ReturnPurchase::latest()->first('id');
+        if ($pur != null) {
+            $id = $pur->id;
+            $purchase_code = 'PUR - '.($id + 1);
+        } else {
+            $purchase_code = 'PUR - 1';
+        }
+
 
         $purchase = Purchase::create([
             'purchase_code'=> $purchase_code,
