@@ -10,11 +10,11 @@
     @if ($errors->any())
         <div class="alert alert-danger">
             <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
+            {{-- <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
-            </ul>
+            </ul> --}}
         </div>
     @endif
 
@@ -72,6 +72,7 @@
                             {!! $errors->first('note') !!}
                         </div>
                     @endif
+                    <span id="note_err" class="text-danger"></span>
                     <span class="help-block">{{ trans('cruds.damagepurchases.fields.note_helper') }}</span>
                 </div>
 
@@ -138,12 +139,15 @@
                     <a class="btn btn-primary" href="{{ url()->previous() }}">
                         {{ trans('Back') }}
                     </a>
+
                 </div>
             </form>
         </div>
 
     </div>
     <script type="text/javascript">
+        CKEDITOR.replace( 'note' );
+        CKEDITOR.add
         $(document).ready(function() {
             var purchase_id = {{ $damage->purchase_id }};
 
@@ -210,11 +214,23 @@
                     },
                     success: function(res) {
                         $('body').find('#productTable').html(res);
+                        let minDate = $('body').find('#minDate').val();
+                        $('body').find(':input[type="date"]').attr('min',minDate);
+                        $('body').find(':input[type="date"]').val('');
                     }
                 });
             } else {
                 $('#userid').val('').trigger('change').html('<option value=""></option>');
                 $("#userid").prop('disabled', false);
+            }
+        });
+        $("form").submit(function(e) {
+            var messageLength = CKEDITOR.instances['note'].getData().replace(/<[^>]*>/gi, '').length;
+            if (!messageLength) {
+                $('#note_err').text('Please enter Note');
+                e.preventDefault();
+            } else {
+                $('#note_err').text('');
             }
         });
     </script>

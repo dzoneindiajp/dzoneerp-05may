@@ -409,6 +409,31 @@ return [
             'status'                        => 'Status',
             'status_helper'                  => '',
         ]
+    ],
+
+    'purchasesinventory' => [
+        'title'           => 'Purchases Inventory',
+        'title_singular'  => 'Purchase Inventory',
+        'fields'          => [
+            'id'                            => 'ID',
+            'id_helper'                     => ' ',
+            'product'                          => 'Product',
+            'product_helper'                   => '',
+            'purchaseqty'                   => 'Purchased Qty',
+            'purchaseqty_helper'            => '',
+            'usedqty'                       => 'Used Qty',
+            'used_helper'                   => '',
+            'returnqty'                     => 'Return Qty',
+            'returnqty_helper'              => '',
+            'damageqty'                     => 'Damage Qty',
+            'damageqty_helper'              => '',
+            'availableqty'                  => 'Available Qty',
+            'availableqty_helper'           => '',
+            'unitprice'                     => 'Unit Price',
+            'unitprice_helper'              => '',
+            'purchase'                      => 'Purchase',
+            'purchase_helper'               => '',
+        ]
     ]
 
 ];

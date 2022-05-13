@@ -100,6 +100,7 @@
                             {!! $errors->first('note') !!}
                         </div>
                     @endif
+                    <span id="note_err" class="text-danger"></span>
                     <span class="help-block">{{ trans('cruds.returnpurchases.fields.note_helper') }}</span>
                 </div>
 
@@ -160,6 +161,8 @@
 
     </div>
     <script type="text/javascript">
+            CKEDITOR.replace( 'note' );
+            CKEDITOR.add
         $(document).ready(function() {
             var purchase_id = {{ $return->purchase_id }};
 
@@ -176,6 +179,8 @@
                     },
                     success: function(res) {
                         $('body').find('#productTable').html(res);
+                        let minDate = $('body').find('#minDate').val();
+                        $('body').find(':input[type="date"]').attr('min',minDate);
                     }
                 });
             } else {
@@ -226,11 +231,25 @@
                     },
                     success: function(res) {
                         $('body').find('#productTable').html(res);
+                        let minDate = $('body').find('#minDate').val();
+                        $('body').find(':input[type="date"]').attr('min',minDate);
+                        $('body').find(':input[type="date"]').val('');
                     }
                 });
             } else {
                 $('#userid').val('').trigger('change').html('<option value=""></option>');
                 $("#userid").prop('disabled', false);
+            }
+        });
+
+
+        $("form").submit(function(e) {
+            var messageLength = CKEDITOR.instances['note'].getData().replace(/<[^>]*>/gi, '').length;
+            if (!messageLength) {
+                $('#note_err').text('Please enter Note');
+                e.preventDefault();
+            } else {
+                $('#note_err').text('');
             }
         });
     </script>

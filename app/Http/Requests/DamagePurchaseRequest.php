@@ -24,7 +24,24 @@ class DamagePurchaseRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'reason' => [
+                'required',
+            ],
+            'date' => [
+                'required',
+            ],
+            'purchase' => [
+                'required',
+            ],
+            'damageqty' => [
+                'required',
+            ],
+            'note' => [
+                'required',
+            ],
+            'status' => [
+                'required',
+            ],
         ];
     }
 }

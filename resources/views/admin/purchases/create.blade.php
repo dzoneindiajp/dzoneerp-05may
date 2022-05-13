@@ -273,7 +273,7 @@
                             {!! $errors->first('note') !!}
                         </div>
                     @endif
-                    <label class="note_err"></label>
+                    <span id="note_err" class="text-danger"></span>
                     <span class="help-block">{{ trans('cruds.purchase.fields.note_helper') }}</span>
                 </div>
 
@@ -316,12 +316,15 @@
                     <a class="btn btn-primary" href="{{ url()->previous() }}">
                         {{ trans('Back') }}
                     </a>
+
                 </div>
             </form>
         </div>
 
     </div>
     <script type="text/javascript">
+        CKEDITOR.replace( 'note' );
+        CKEDITOR.add
         $('input[type="number"]').on('keypress', function(e) {
             // if (e.which < 48 || e.which > 57) {
             //     e.preventDefault();
@@ -385,7 +388,7 @@
             tr.find('.discountVal').val(totaldiscount);
 
             if ($('.productlist').length <= 1) {
-                $('body').find(':input[name="transportcost"]').val('');
+                $('body').find(':input[name="transportcost"]').val('00');
             }
 
             calculation();
@@ -472,6 +475,16 @@
                 return false;
             }
 
+        });
+
+        $("form").submit(function(e) {
+            var messageLength = CKEDITOR.instances['note'].getData().replace(/<[^>]*>/gi, '').length;
+            if (!messageLength) {
+                $('#note_err').text('Please enter Note');
+                e.preventDefault();
+            } else {
+                $('#note_err').text('');
+            }
         });
     </script>
 @endsection

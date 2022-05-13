@@ -25,11 +25,6 @@
                                 {{ $category->name }}</option>
                         @endforeach
                     </select>
-                    @if ($errors->has('catid'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('catid') }}
-                        </div>
-                    @endif
                     <span class="help-block">{{ trans('cruds.product.fields.category_helper') }}</span>
                 </div enctype="multipart/form-data">
 
@@ -43,11 +38,6 @@
                                 {{ $subcategory->name }}</option>
                         @endforeach
                     </select>
-                    @if ($errors->has('subcatid'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('subcatid') }}
-                        </div>
-                    @endif
                     <span class="help-block">{{ trans('cruds.product.fields.subcategory_helper') }}</span>
                 </div>
 
@@ -55,11 +45,7 @@
                     <label class="required" for="name">{{ trans('cruds.product.fields.name') }}</label>
                     <input readonly class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name"
                         id="name" value="{{ old('name', $product->product_name) }}" required>
-                    @if ($errors->has('name'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('name') }}
-                        </div>
-                    @endif
+
                     <span class="help-block">{{ trans('cruds.product.fields.name_helper') }}</span>
                 </div>
 
@@ -73,11 +59,6 @@
                                 {{ $unit->name }}</option>
                         @endforeach
                     </select>
-                    @if ($errors->has('unitid'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('unitid') }}
-                        </div>
-                    @endif
                     <span class="help-block">{{ trans('cruds.product.fields.name_helper') }}</span>
                 </div>
 
@@ -97,11 +78,6 @@
                         for="isfinishedproduct">{{ trans('cruds.product.fields.isfinishedproduct') }}</label><br>
                     <input type="radio" name="isfinishedproduct" value="0" @if($product->isfinishedproduct == 0) checked @endif> No
                     <input type="radio" name="isfinishedproduct" value="1" @if($product->isfinishedproduct == 1) checked @endif> Yes
-                    @if ($errors->has('isfinishedproduct'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('isfinishedproduct') }}
-                        </div>
-                    @endif
                     <span class="help-block">{{ trans('cruds.product.fields.isfinishedproduct_helper') }}</span>
                 </div>
 

@@ -7,6 +7,7 @@ use App\Http\Requests\DamagePurchaseRequest;
 use App\Models\DamagePurchase;
 use App\Models\Product;
 use App\Models\Purchase;
+use App\Models\ReturnPurchase;
 use App\Models\Unit;
 use Exception;
 use Illuminate\Http\Request;
@@ -32,7 +33,8 @@ class DamagePurchaseController extends Controller
     public function create()
     {
         $damages = DamagePurchase::pluck('purchase_id');
-        $purchases = Purchase::where('status', 1)->whereNotIn('id',$damages)->get();
+        $returns = ReturnPurchase::pluck('purchase_id');
+        $purchases = Purchase::where('status', 1)->whereIn('id',$returns)->whereNotIn('id',$damages)->get();
         return view('admin.damage_purchases.create', compact('purchases'));
     }
 
@@ -40,6 +42,7 @@ class DamagePurchaseController extends Controller
     {
         if ($request->purchase_id != null) {
             $purchases = Purchase::where("id", $request->purchase_id)->first();
+            $return = ReturnPurchase::where('purchase_id', $request->purchase_id)->first();
             $products = Product::get();
             $units =  Unit::get();
             $isRecord = true;
@@ -54,10 +57,10 @@ class DamagePurchaseController extends Controller
         $res[1] = $purchases;
 
         if ($request->damage_qty == 0) {
-            return response()->view('admin.damage_purchases.damage_purchases_product', compact('res', 'products', 'units'));
+            return response()->view('admin.damage_purchases.damage_purchases_product', compact('res', 'products', 'units','return'));
         } else {
             $damage = DamagePurchase::where('purchase_id', $request->purchase_id)->first();
-            return response()->view('admin.damage_purchases.damage_purchases_product', compact('res', 'products', 'units', 'damage'));
+            return response()->view('admin.damage_purchases.damage_purchases_product', compact('res', 'products', 'units', 'damage','return'));
         }
     }
 
@@ -111,7 +114,7 @@ class DamagePurchaseController extends Controller
         $damage = DamagePurchase::find($id);
         $products = Product::get();
         $units =  Unit::get();
-        $purchases = Purchase::where('status', 1)->get();
+        $purchases = Purchase::get();
 
         return view('admin.damage_purchases.show', compact('products', 'units', 'purchases', 'damage'));
     }
@@ -127,7 +130,7 @@ class DamagePurchaseController extends Controller
         $damage = DamagePurchase::find($id);
         $products = Product::get();
         $units =  Unit::get();
-        $purchases = Purchase::where('status', 1)->get();
+        $purchases = Purchase::get();
 
         return view('admin.damage_purchases.edit', compact('products', 'units', 'purchases', 'damage'));
     }

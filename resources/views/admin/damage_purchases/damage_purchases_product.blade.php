@@ -16,6 +16,7 @@
             </thead>
             <tbody>
                 @for ($i = 0; $i < count(json_decode($purchase->product_id, true)); $i++)
+                <input type="hidden" name="minDate" id="minDate" value="{{ $purchase->purchase_date }}">
                     <tr class="productlist">
                         <td>
                             @foreach ($products as $product)
@@ -45,7 +46,9 @@
                                     <input readonly
                                         class="form-control {{ $errors->has('unit') ? 'is-invalid' : '' }} unit"
                                         type="text" min="0" max="9999" name="unit[]"
-                                        value="{{ json_decode($purchase->product_qty, true)[$i] . ' ' . $unit->name }}">
+                                        {{-- value="{{ json_decode($purchase->product_qty, true)[$i] . ' ' . $unit->name }}" --}}
+                                        value="{{ (isset($return)) ? (json_decode($purchase->product_qty, true)[$i] - json_decode($return->returnqty, true)[$i]) . ' ' . $unit->name   : json_decode($purchase->product_qty, true)[$i] . ' ' . $unit->name }}"
+                                        >
                                 @endif
                             @endforeach
                         </td>
@@ -68,7 +71,9 @@
                         <td>
                             <input class="form-control {{ $errors->has('damageqty') ? 'is-invalid' : '' }} damageqty"
                                 type="number" name="damageqty[]" value="{{ (isset($damage)) ? old('damageqty', json_decode($damage->damageqty, true)[$i]) : old('damageqty', '') }}" min="0"
-                                max="{{ json_decode($purchase->product_qty, true)[$i] }}" required>
+                                {{-- max="{{ json_decode($purchase->product_qty, true)[$i] }}" --}}
+                                max="{{ (isset($return)) ? (json_decode($purchase->product_qty, true)[$i] - json_decode($return->returnqty, true)[$i])  : json_decode($purchase->product_qty, true)[$i]}}"
+                                 required>
                             @if ($errors->has('damageqty'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('damageqty') }}

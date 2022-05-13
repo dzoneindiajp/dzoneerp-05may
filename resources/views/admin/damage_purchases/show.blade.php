@@ -6,18 +6,6 @@
     <script src="{{ asset('assets/editor/sample2.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/editor/toolbarconfigurator/lib/codemirror/neo.css') }}">
 
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <div class="card">
         <div class="card-header">
             {{ trans('global.show') }} {{ trans('cruds.damagepurchases.title_singular') }}
@@ -30,11 +18,7 @@
                     <label class="required" for="reason">{{ trans('cruds.damagepurchases.fields.reason') }}</label>
                     <input readonly class="form-control {{ $errors->has('reason') ? 'is-invalid' : '' }}" type="text"
                         name="reason" id="reason" value="{{ old('reason', $damage->damage_reason) }}" required>
-                    @if ($errors->has('reason'))
-                        <div class="invalid-feedback">
-                            {!! $errors->first('reason') !!}
-                        </div>
-                    @endif
+
                     <span class="help-block">{{ trans('cruds.damagepurchases.fields.reason_helper') }}</span>
                 </div>
 
@@ -49,11 +33,7 @@
                                 {{ $purchase->purchase_code }}</option>
                         @endforeach
                     </select>
-                    @if ($errors->has('purchase'))
-                        <div class="invalid-feedback">
-                            {!! $errors->first('purchase') !!}
-                        </div>
-                    @endif
+
                     <span class="help-block">{{ trans('cruds.damagepurchases.fields.purchase_helper') }}</span>
                 </div>
 
@@ -64,11 +44,7 @@
                     <label class="required" for="note">{{ trans('cruds.damagepurchases.fields.note') }}</label>
                     <textarea readonly name="note" id="note" class="form-control {{ $errors->has('note') ? 'is-invalid' : '' }}" rows="4"
                         required>{{ old('note', $damage->damage_note) }}</textarea>
-                    @if ($errors->has('note'))
-                        <div class="invalid-feedback">
-                            {!! $errors->first('note') !!}
-                        </div>
-                    @endif
+
                     <span class="help-block">{{ trans('cruds.damagepurchases.fields.note_helper') }}</span>
                 </div>
 
@@ -77,11 +53,7 @@
                     <label class="required" for="date">{{ trans('cruds.damagepurchases.fields.date') }}</label>
                     <input readonly class="form-control {{ $errors->has('date') ? 'is-invalid' : '' }}" type="date"
                         name="date" id="date" value="{{ old('date', $damage->damage_date) }}" required>
-                    @if ($errors->has('date'))
-                        <div class="invalid-feedback">
-                            {!! $errors->first('date') !!}
-                        </div>
-                    @endif
+
                     <span class="help-block">{{ trans('cruds.damagepurchases.fields.date_helper') }}</span>
                 </div>
 
@@ -89,10 +61,7 @@
                 <div class="form-group">
                     <label class="required" for="old_image">
                         {{ trans('cruds.damagepurchases.fields.image') }}</label><br>
-                    @if ($damage->damage_image != null && file_exists(public_path('app/damage_purchase/' . $damage->damage_image)))
-                        <img src="{{ asset('app/damage_purchase/' . $damage->damage_image) }}" alt="No image"
-                            height="120" width="180">
-                    @endif
+
                 </div>
 
                 <div class="form-group">
@@ -102,11 +71,7 @@
                         <option value="1" @if ($damage->status == 1) selected @endif>Active</option>
                         <option value="0" @if ($damage->status == 0) selected @endif>In-Active</option>
                     </select>
-                    @if ($errors->has('status'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('status') }}
-                        </div>
-                    @endif
+
                     <span class="help-block">{{ trans('cruds.damagepurchases.fields.status_helper') }}</span>
                 </div>
 
@@ -118,12 +83,15 @@
                     <a class="btn btn-primary" href="{{ url()->previous() }}">
                         {{ trans('Back') }}
                     </a>
+
                 </div>
             </form>
         </div>
 
     </div>
     <script type="text/javascript">
+        CKEDITOR.replace( 'note' );
+        CKEDITOR.add
         $(document).ready(function() {
             var purchase_id = {{ $damage->purchase_id }};
 

@@ -126,6 +126,10 @@
                     <button class="btn btn-danger" type="submit">
                         {{ trans('global.save') }}
                     </button>
+
+                    <a class="btn btn-primary" href="{{ url()->previous() }}">
+                        {{ trans('Back') }}
+                    </a>
                 </div>
             </form>
         </div>

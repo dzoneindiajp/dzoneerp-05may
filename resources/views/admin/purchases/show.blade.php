@@ -18,7 +18,7 @@
         </div>
     @endif
 
-    <div class="card">
+    {{-- <div class="card">
         <div class="card-header">
             {{ trans('global.show') }} {{ trans('cruds.purchase.title_singular') }}
         </div>
@@ -27,8 +27,8 @@
             <form action="#">
                 <div class="form-group">
                     <label class="" for="date">{{ trans('cruds.purchase.fields.date') }}</label>
-                    <input readonly class="form-control {{ $errors->has('date') ? 'is-invalid' : '' }}" type="date" name="date"
-                        id="date" value="{{ old('date', $purchase->purchase_date) }}">
+                    <input readonly class="form-control {{ $errors->has('date') ? 'is-invalid' : '' }}" type="date"
+                        name="date" id="date" value="{{ old('date', $purchase->purchase_date) }}">
                     @if ($errors->has('date'))
                         <div class="invalid-feedback">
                             {{ $errors->first('date') }}
@@ -39,8 +39,9 @@
 
                 <div class="form-group">
                     <label class="required" for="usertype">{{ trans('cruds.purchase.fields.usertype') }}</label>
-                    <select disabled class="form-control select2 {{ $errors->has('usertype') ? 'is-invalid' : '' }} usertype" name="usertype"
-                        id="usertype" required>
+                    <select disabled
+                        class="form-control select2 {{ $errors->has('usertype') ? 'is-invalid' : '' }} usertype"
+                        name="usertype" id="usertype" required>
                         <option value="0" @if ($purchase->user_type == 0) selected @endif>Supplier</option>
                         <option value="1" @if ($purchase->user_type == 1) selected @endif>Vendor</option>
                     </select>
@@ -111,7 +112,8 @@
                                     </td>
 
                                     <td>
-                                        <input readonly class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }} qty"
+                                        <input readonly
+                                            class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }} qty"
                                             type="number" min="0" max="9999" name="qty[]"
                                             value="{{ old('qty', json_decode($purchase->product_qty, true)[$i]) }}">
                                         @if ($errors->has('qty'))
@@ -143,7 +145,8 @@
                                     </td>
 
                                     <td>
-                                        <input readonly class="form-control {{ $errors->has('unitprice') ? 'is-invalid' : '' }} unitprice"
+                                        <input readonly
+                                            class="form-control {{ $errors->has('unitprice') ? 'is-invalid' : '' }} unitprice"
                                             type="number" name="unitprice[]"
                                             value="{{ old('unitprice', json_decode($purchase->unit_price, true)[$i]) }}"
                                             min="0" max="99999">
@@ -157,7 +160,8 @@
                                     </td>
 
                                     <td>
-                                        <input readonly class="form-control {{ $errors->has('discount') ? 'is-invalid' : '' }} discount"
+                                        <input readonly
+                                            class="form-control {{ $errors->has('discount') ? 'is-invalid' : '' }} discount"
                                             type="number" name="discount[]"
                                             value="{{ old('discount', json_decode($purchase->discount, true)[$i]) }}"
                                             min="0" max="99">
@@ -182,9 +186,10 @@
                                             $dis = ($total * $discount) / 100;
                                             $producttotal = $total - $dis;
                                         @endphp
-                                        <input readonly class="form-control {{ $errors->has('producttotal') ? 'is-invalid' : '' }} producttotal"
+                                        <input readonly
+                                            class="form-control {{ $errors->has('producttotal') ? 'is-invalid' : '' }} producttotal"
                                             type="number" name="producttotal[]"
-                                            value="{{ old('producttotal', $producttotal) }}" >
+                                            value="{{ old('producttotal', $producttotal) }}">
                                         @if ($errors->has('producttotal'))
                                             <div class="invalid-feedback">
                                                 {{ $errors->first('producttotal') }}
@@ -201,7 +206,7 @@
                 </div>
                 <div class="form-group">
                     <label class="" for="subtotal">{{ trans('cruds.purchase.fields.subtotal') }}</label>
-                    <input readonly  class="form-control {{ $errors->has('subtotal') ? 'is-invalid' : '' }} subtotal"
+                    <input readonly class="form-control {{ $errors->has('subtotal') ? 'is-invalid' : '' }} subtotal"
                         type="text" name="subtotal" id="subtotal" value="{{ old('subtotal', $purchase->subtotal) }}">
                     @if ($errors->has('subtotal'))
                         <div class="invalid-feedback">
@@ -214,7 +219,8 @@
                 <div class="form-group">
                     <label class=""
                         for="totaldiscount">{{ trans('cruds.purchase.fields.totaldiscount') }}</label>
-                    <input readonly class="form-control {{ $errors->has('totaldiscount') ? 'is-invalid' : '' }} totaldiscount"
+                    <input readonly
+                        class="form-control {{ $errors->has('totaldiscount') ? 'is-invalid' : '' }} totaldiscount"
                         type="text" name="totaldiscount" id="totaldiscount"
                         value="{{ old('totaldiscount', $purchase->total_discount) }}">
                     @if ($errors->has('totaldiscount'))
@@ -228,7 +234,8 @@
                 <div class="form-group">
                     <label class=""
                         for="transportcost">{{ trans('cruds.purchase.fields.transportcost') }}</label>
-                    <input readonly class="form-control {{ $errors->has('transportcost') ? 'is-invalid' : '' }} transportcost"
+                    <input readonly
+                        class="form-control {{ $errors->has('transportcost') ? 'is-invalid' : '' }} transportcost"
                         type="number" name="transportcost" id="transportcost"
                         value="{{ old('transportcost', $purchase->transport_cost) }}" min="0" max="99999">
                     @if ($errors->has('transportcost'))
@@ -242,7 +249,7 @@
                 <div class="form-group">
                     <label class=""
                         for="grandtotal">{{ trans('cruds.purchase.fields.grandtotal') }}</label>
-                    <input readonly  class="form-control {{ $errors->has('grandtotal') ? 'is-invalid' : '' }} grandtotal"
+                    <input readonly class="form-control {{ $errors->has('grandtotal') ? 'is-invalid' : '' }} grandtotal"
                         type="text" name="grandtotal" id="grandtotal"
                         value="{{ old('grandtotal', $purchase->grand_total) }}">
                     @if ($errors->has('grandtotal'))
@@ -275,8 +282,8 @@
 
                 <div class="form-group">
                     <label class="required" for="status">{{ trans('cruds.purchase.fields.status') }}</label>
-                    <select disabled class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status"
-                        id="status" required>
+                    <select disabled class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}"
+                        name="status" id="status" required>
                         <option value="1" @if ($purchase->status == 1) selected @endif>Active</option>
                         <option value="0" @if ($purchase->status == 0) selected @endif>In-Active</option>
                     </select>
@@ -296,6 +303,338 @@
                 </div>
             </form>
         </div>
+    </div> --}}
+
+
+
+    <div class="content pb-4" id="contentBox" media="print">
+        <div class="container">
+            <div class="row">
+                <div class="card p-2">
+                    <div class="card-header">
+                        <h3 class="card-title">View purchase : {{ $purchase->purchase_code }}</h3>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 table-responsive view-table">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Purchased Code:</strong>
+                                                {{ $purchase->purchase_code }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Supplier:</strong>
+                                                {{ $user->name }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Purchase Products:</strong>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="5%">#</th>
+                                                                <th width="12%">
+                                                                    {{ trans('cruds.purchase.fields.product') }}</th>
+                                                                <th width="8%">{{ trans('cruds.purchase.fields.qty') }}
+                                                                </th>
+                                                                <th width="8%">Used</th>
+                                                                <th width="8%">Return</th>
+                                                                <th width="8%">Damage</th>
+                                                                <th width="8%">Available</th>
+                                                                <th width="5%">
+                                                                    {{ trans('cruds.purchase.fields.unitprice') }}</th>
+                                                                <th width="5%">
+                                                                    {{ trans('cruds.purchase.fields.discount') }} %</th>
+                                                                <th width="20%">Total</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @for ($i = 0; $i < count(json_decode($purchase->product_id, true)); $i++)
+                                                                @foreach ($units as $unit)
+                                                                    @if ($unit->id == json_decode($purchase->unit_id, true)[$i])
+                                                                        @php $unitName = $unit->name @endphp
+                                                                    @endif
+                                                                @endforeach
+
+                                                                @php
+                                                                    $qty = json_decode($purchase->product_qty, true)[$i];
+                                                                    $unitprice = json_decode($purchase->unit_price, true)[$i];
+                                                                    $discount = json_decode($purchase->discount, true)[$i];
+
+                                                                    $return_qty = isset($returnPurchase) ? json_decode($returnPurchase->returnqty, true)[$i] : 0;
+                                                                    $damage_qty = isset($damagePurchase) ? json_decode($damagePurchase->damageqty, true)[$i] : 0;
+
+                                                                    $total = $qty * $unitprice;
+                                                                    $dis = ($total * $discount) / 100;
+                                                                    $producttotal = $total - $dis;
+                                                                @endphp
+                                                                <tr class="productlist pl-2">
+                                                                    <td>
+                                                                        {{ $i + 1 }}
+                                                                    </td>
+                                                                    <td>
+                                                                        @foreach ($products as $product)
+                                                                            @if ($product->id == json_decode($purchase->product_id, true)[$i])
+                                                                                {{ $product->product_name }}
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </td>
+
+                                                                    <td>
+                                                                        {{ $qty }} {{ $unitName }}
+                                                                    </td>
+
+                                                                    <td>
+                                                                        0 {{ $unitName }}
+                                                                    </td>
+
+                                                                    <td>
+                                                                        {{ $return_qty }} {{ $unitName }}
+                                                                    </td>
+
+                                                                    <td>
+                                                                        {{ $damage_qty }} {{ $unitName }}
+                                                                    </td>
+
+                                                                    <td>
+                                                                        {{ $qty - $return_qty - $damage_qty }}
+                                                                        {{ $unitName }}
+                                                                    </td>
+
+                                                                    <td>
+                                                                        ${{ $unitprice }}
+                                                                    </td>
+
+                                                                    <td>
+                                                                        ${{ $dis }} ({{ $discount }} %)
+                                                                    </td>
+
+                                                                    <td>
+                                                                        ${{ $total }} - ${{ $dis }} =
+                                                                        ${{ $producttotal }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endfor
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Subtotal:</strong>
+                                                ${{ number_format($purchase->subtotal, 2) }}
+                                                (After reducing discount.)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Total Discount:</strong>
+                                                ${{ number_format($purchase->total_discount, 2) }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Trasnport Cost:</strong>
+                                                +${{ number_format($purchase->transport_cost, 2) }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Grand Total:</strong>
+                                                ${{ number_format($purchase->grand_total, 2) }}
+                                            </td>
+                                        </tr>
+                                        {{-- <tr>
+                                            <td><strong>Total Paid:</strong>
+                                                $120
+                                            </td>
+                                        </tr> --}}
+                                        <tr>
+                                            <td><strong>Total Due:</strong>
+                                                ${{ number_format($purchase->grand_total, 2) }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Refund Amount:</strong>
+                                                ${{ (isset($returnPurchase)) ? number_format($returnPurchase->return_amount, 2) : 0}}
+                                            </td>
+                                        </tr>
+                                        {{-- <tr>
+                                            <td><strong>Payment Method:</strong>
+                                                money
+                                            </td>
+                                        </tr> --}}
+                                        <tr>
+                                            <td><strong>Note:</strong>
+                                                {!! $purchase->purchase_note !!}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Status:</strong>
+                                                @if ($purchase->status == 1)
+                                                <span class="badge badge-success">Active</span>
+                                                @else
+                                                <span class="badge badge-danger">In Active</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <div class="col-md-12 col-lg-12 text-center justify-content-center align-self-center">
+                                @if ($purchase->purchase_image != null && file_exists(public_path('app/purchase/' . $purchase->purchase_image)))
+                                    <img src="{{ asset('app/purchase/' . $purchase->purchase_image) }}" alt="No image"
+                                        height="360" width="640">
+                                @endif
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer no-print"><a href="{{ url()->previous() }}" class="btn btn-primary"><i
+                                class="fas fa-long-arrow-alt-left"></i> Go Back
+                        </a> <a href="javascript:void(0)" class="btn btn-secondary float-right print-btn" id="printMe"><i
+                                class="fas fa-print"></i>
+                            Print</a></div>
+                </div>
+            </div>
+
+
+            @if (isset($returnPurchase))
+                <div class="row mt-5">
+                    <div class="card col-md-12">
+                        <div class="card-header">
+                            <h3 class="card-title">View returns products for purchase: {{ $purchase->purchase_code }}
+                            </h3>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12 table-responsive view-table min-height-150">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>Return Reason:</strong>
+                                                    {{ $returnPurchase->return_reason }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Return Date:</strong>
+                                                    {{ date('d-M-Y', strtotime($returnPurchase->return_date)) }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Purchase Products:</strong>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Product</th>
+                                                                    <th>Purchased Qty</th>
+                                                                    <th>Return</th>
+                                                                    <th>Unit Price</th>
+                                                                    <th class="text-right">Total</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @for ($i = 0; $i < count(json_decode($returnPurchase->purchase->product_id, true)); $i++)
+                                                                    @foreach ($units as $unit)
+                                                                        @if ($unit->id == json_decode($purchase->unit_id, true)[$i])
+                                                                            @php $unitName = $unit->name @endphp
+                                                                        @endif
+                                                                    @endforeach
+
+                                                                    @php
+                                                                        $qty = json_decode($purchase->product_qty, true)[$i];
+                                                                        $unitprice = json_decode($purchase->unit_price, true)[$i];
+                                                                        $discount = json_decode($purchase->discount, true)[$i];
+
+                                                                        $return_qty = isset($returnPurchase) ? json_decode($returnPurchase->returnqty, true)[$i] : 0;
+                                                                        $damage_qty = isset($damagePurchase) ? json_decode($damagePurchase->damageqty, true)[$i] : 0;
+
+                                                                        $total = $qty * $unitprice;
+                                                                        $dis = ($total * $discount) / 100;
+                                                                        $producttotal = $total - $dis;
+                                                                    @endphp
+                                                                    <tr class="productlist pl-2">
+                                                                        <td>
+                                                                            {{ $i + 1 }}
+                                                                        </td>
+                                                                        <td>
+                                                                            @foreach ($products as $product)
+                                                                                @if ($product->id == json_decode($purchase->product_id, true)[$i])
+                                                                                    {{ $product->product_name }}
+                                                                                @endif
+                                                                            @endforeach
+                                                                        </td>
+
+                                                                        <td>
+                                                                            {{ $qty }} {{ $unitName }}
+                                                                        </td>
+
+                                                                        <td>
+                                                                            {{ $return_qty }} {{ $unitName }}
+                                                                        </td>
+
+                                                                        <td>
+                                                                            ${{ $unitprice }}
+                                                                        </td>
+
+                                                                        <td class="text-right">
+                                                                            ${{ $producttotal }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endfor
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Refund Amount:</strong>
+                                                    ${{ number_format($returnPurchase->return_amount,2) }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Note:</strong>
+                                                    {{ $returnPurchase->return_note }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Status:</strong>
+                                                    @if ($returnPurchase->status == 1)
+                                                    <span class="badge badge-success">Active</span>
+                                                    @else
+                                                    <span class="badge badge-danger">In Active</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
     </div>
 
+    <script>
+        // CKEDITOR.replace('note');
+        // CKEDITOR.add
+        $("#printMe").click(function() {
+            // $("#contentBox").printArea({
+            //     mode: 'popup',
+            //     popClose: true
+            // });
+            $('#contentBox').print({
+                append: "<br/>",
+                prepend: "<br/>",
+                deferred: $.Deferred(),
+
+            });
+        });
+    </script>
 @endsection

@@ -24,17 +24,16 @@
 
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.damagepurchases.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.damagepurchases.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.purchases.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.purchase.title_singular') }}
             </a>
         </div>
     </div>
 
     <div class="card w-100">
         <div class="card-header">
-            {{ trans('cruds.damagepurchases.title_singular') }} {{ trans('global.list') }}
+            {{ trans('cruds.purchasesinventory.title_singular') }} {{ trans('global.list') }}
         </div>
-
         <div class="card-body w-100">
             <div class="table-responsive">
                 <table id="example" class="display nowrap" style="width:100%">
@@ -42,96 +41,102 @@
                         <tr>
 
                             <th>
-                                {{ trans('cruds.damagepurchases.fields.id') }}
+                                {{ trans('cruds.purchasesinventory.fields.id') }}
+                            </th>
+                            <th width="20%">
+                                {{ trans('cruds.purchasesinventory.fields.product') }}
                             </th>
                             <th>
-                                {{ trans('cruds.damagepurchases.fields.code') }}
+                                {{ trans('cruds.purchasesinventory.fields.purchaseqty') }}
                             </th>
                             <th>
-                                {{ trans('cruds.damagepurchases.fields.purchase') }}
+                                {{ trans('cruds.purchasesinventory.fields.usedqty') }}
                             </th>
                             <th>
-                                {{ trans('cruds.damagepurchases.fields.reason') }}
+                                {{ trans('cruds.purchasesinventory.fields.returnqty') }}
                             </th>
                             <th>
-                                {{ trans('cruds.damagepurchases.fields.date') }}
+                                {{ trans('cruds.purchasesinventory.fields.damageqty') }}
                             </th>
-                            <th width="8%">
-                                {{ trans('cruds.damagepurchases.fields.qty') }}
+                            <th width="10%">
+                                {{ trans('cruds.purchasesinventory.fields.availableqty') }}
                             </th>
-                            <th  width="20%">
-                                {{ trans('cruds.damagepurchases.fields.note') }}
+                            <th  width="10%">
+                                {{ trans('cruds.purchasesinventory.fields.unitprice') }}
                             </th>
-                            <th>
-                                Action
+                            <th width="10%">
+                                {{ trans('cruds.purchasesinventory.fields.purchase') }}
                             </th>
+
                         </tr>
                     </thead>
                     <tbody>
                         @php
                             $i = 0;
+                            $j = 0;
+
                         @endphp
-                        @foreach ($damage as $c)
 
-                            <tr>
-                                <td>
-                                    {{ ++$i }}
-                                </td>
-                                <td>
-                                    <a class="text-decoration-none" href="{{ route('admin.damagepurchases.edit', $c->id) }}">
-                                        {{ $c->damage_code }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a class="text-decoration-none" href="{{ route('admin.purchases.show', $c->purchase_id) }}">
-                                    {{ $c->purchase->purchase_code }}
-                                    </a>
-                                </td>
-                                <td>
-                                    {{ $c->damage_reason ? substr($c->damage_reason, 0, 25) . '...' : '' }}
-                                </td>
-                                <td>
-                                    {{ $c->damage_date }}
-                                </td>
-                                <td>
-                                    @php
-                                        $qty = 0;
-                                    @endphp
+                        @foreach ($return_purchase as $returnpurchase)
+                            @php
+                            $k = 0;
 
-                                    @foreach (json_decode($c->damageqty, true) as $prod)
-                                        @php $qty = $qty + $prod @endphp
-                                    @endforeach
-                                    {{ $qty }}
-                                </td>
-                                <td>
-                                    {!! $c->damage_note ? substr($c->damage_note, 0, 50) . '...' : '' !!}
-                                </td>
+                            if(isset($returnpurchase)){
+                                $product_id = json_decode($returnpurchase->purchase->product_id,true);
+                                $products = \App\Models\Product::with(['unit'])->whereIn('id',$product_id)->get();
+                            }else{
+                                $products = array();
+                            }
+                            @endphp
 
-                                <td>
+                            @foreach ($products as $c)
+                                @php
+                                    $unitName = $c->unit->name;
+                                @endphp
+                                <tr>
+                                    <td>
+                                        {{ ++$i }}
+                                    </td>
+                                    <td>
+                                            {{ $c->product_name }}
+                                    </td>
+                                    <td>
+                                        {{ json_decode($returnpurchase->purchase->product_qty)[$k] }} {{ $unitName }}
+                                    </td>
+                                    <td>
+                                        0 {{ $unitName }}
+                                    </td>
 
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.damagepurchases.show', $c->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
+                                    <td>
+                                        {{ json_decode($returnpurchase->returnqty)[$k] }}  {{ $unitName }}
+                                    </td>
 
+                                    <td>
+                                        @if (isset($damage_purchase[$j]))
+                                            {{ json_decode($damage_purchase[$j]->damageqty)[$k] }}  {{ $unitName }}
+                                        @else
+                                            0  {{ $unitName }}
+                                        @endif
+                                    </td>
 
+                                    <td>
+                                        {{ json_decode($returnpurchase->purchase->product_qty)[$k] - ((isset($returnpurchase->returnqty)) ? json_decode($returnpurchase->returnqty)[$k] : 00) - ((isset($damage_purchase[$j])) ? json_decode($damage_purchase[$j]->damageqty)[$k] : 00) }}  {{ $unitName }}
+                                    </td>
 
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.damagepurchases.edit', $c->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
+                                    <td>
+                                        ${{ json_decode($returnpurchase->purchase->unit_price)[$k] }}
+                                    </td>
 
-                                    <form action="{{ route('admin.damagepurchases.destroy', $c->id) }}" method="POST"
-                                        onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
-                                        style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger"
-                                            value="{{ trans('global.delete') }}">
-                                    </form>
+                                    <td>
+                                        <a class="text-decoration-none" href="{{ route('admin.purchases.show', $returnpurchase->purchase->id) }}">
+                                        {{ $returnpurchase->purchase->purchase_code }}
+                                        </a>
+                                    </td>
+                                    @php $k++ @endphp
+                                </tr>
 
-
-                                </td>
-
-                            </tr>
+                            @endforeach
+                            @php $j++ @endphp
                         @endforeach
                     </tbody>
 
@@ -148,7 +153,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/perfect-scrollbar.min.js"></script>
 <script src="https://unpkg.com/@coreui/coreui@3.2/dist/js/coreui.min.js"></script>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+{{-- <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 
 <script>
@@ -215,7 +220,7 @@
                                 columns: [{
                                         alignment: 'left',
                                         // italics: true,
-                                        text: 'All returnpurchasess',
+                                        text: 'All Purchasess',
                                         fontSize: 18,
                                         margin: [10, 0]
                                     },
@@ -253,7 +258,9 @@
                         });
                         // Change dataTable layout (Table styling)
                         // To use predefined layouts uncomment the line below and comment the custom lines below
-                        // doc.content[0].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
+
+                        doc.content[0].layout = 'lightHorizontalLines'; // noBorders , headerLineOnly
+
                         var objLayout = {};
                         objLayout['hLineWidth'] = function(i) {
                             return .5;
@@ -273,7 +280,8 @@
                         objLayout['paddingRight'] = function(i) {
                             return 0;
                         };
-                        doc.content[0].layout = objLayout;
+
+                        // doc.content[0].layout = objLayout;
                     }
 
                 },
@@ -290,7 +298,6 @@
                 btns.removeClass('dt-button');
                 var btn1 = $('.pagination').find('.paginate_button');
                 btn1.removeClass('paginate_button');
-
             }
         });
     });

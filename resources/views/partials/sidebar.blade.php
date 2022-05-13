@@ -68,11 +68,12 @@
                     <i class="fa-fw nav-icon fas fa-money"></i>
                     <span>Purchase</span>
                 </a>
-                <div id="collapseFour" class="collapse {{ Request::is("admin/purchases*")? "show" : "" }}  {{ Request::is("admin/returnpurchases*")? "show" : "" }}  {{ Request::is("admin/damagepurchases*")? "show" : "" }} "  data-parent="#accordionSidebar">
+                <div id="collapseFour" class="collapse {{ Request::is("admin/purchases*")? "show" : "" }}  {{ Request::is("admin/returnpurchases*")? "show" : "" }}  {{ Request::is("admin/damagepurchases*")? "show" : "" }}  {{ Request::is("admin/purchaseinventory*")? "show" : "" }} "  data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item {{ Request::is('admin/purchases*')? "active" : "" }}" href="{{ route("admin.purchases.index") }}"><i class="fas fa-money" aria-hidden="true"></i>&nbsp;Purchases</a>
+                        <a class="collapse-item {{ Request::is('admin/purchases*')? "active" : "" }}" href="{{ route("admin.purchases.index") }}"><i class="fas fa-shopping-basket" aria-hidden="true"></i>&nbsp;Purchases</a>
                         <a class="collapse-item {{ Request::is('admin/returnpurchases*')? "active" : "" }}" href="{{ route("admin.returnpurchases.index") }}"><i class="fas fa-refresh" aria-hidden="true"></i>&nbsp;Return Purchases</a>
-                        <a class="collapse-item {{ Request::is('admin/damagepurchases*')? "active" : "" }}" href="{{ route("admin.damagepurchases.index") }}"><i class="fas fa-times" aria-hidden="true"></i>&nbsp;Damage Purchases</a>
+                        <a class="collapse-item {{ Request::is('admin/damagepurchases*')? "active" : "" }}" href="{{ route("admin.damagepurchases.index") }}"><i class="fas fa-trash-alt" aria-hidden="true"></i>&nbsp;Damage Purchases</a>
+                        <a class="collapse-item {{ Request::is('admin/purchaseinventory*')? "active" : "" }}" href="{{ route("admin.purchaseinventory.index") }}"><i class="fas fa-boxes" aria-hidden="true"></i>&nbsp;Purchases Inventory</a>
                     </div>
                 </div>
             </li>

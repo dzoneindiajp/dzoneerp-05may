@@ -99,6 +99,7 @@
                             {!! $errors->first('note') !!}
                         </div>
                     @endif
+                    <span id="note_err" class="text-danger"></span>
                     <span class="help-block">{{ trans('cruds.returnpurchases.fields.note_helper') }}</span>
                 </div>
 
@@ -142,6 +143,7 @@
                     <a class="btn btn-primary" href="{{ url()->previous() }}">
                         {{ trans('Back') }}
                     </a>
+
                 </div>
             </form>
         </div>
@@ -157,6 +159,9 @@
                 $(this).val($(this).val().replace(/^0+/, ''));
             }
         });
+
+        CKEDITOR.replace('note');
+        CKEDITOR.add
 
         function calculation() {
             var total_discount = 0;
@@ -191,11 +196,24 @@
                     },
                     success: function(res) {
                         $('body').find('#productTable').html(res);
+                        let minDate = $('body').find('#minDate').val();
+                        $('body').find(':input[type="date"]').attr('min', minDate);
+                        $('body').find(':input[type="date"]').val('');
                     }
                 });
             } else {
                 $('#userid').val('').trigger('change').html('<option value=""></option>');
                 $("#userid").prop('disabled', false);
+            }
+        });
+
+        $("form").submit(function(e) {
+            var messageLength = CKEDITOR.instances['note'].getData().replace(/<[^>]*>/gi, '').length;
+            if (!messageLength) {
+                $('#note_err').text('Please enter Note');
+                e.preventDefault();
+            } else {
+                $('#note_err').text('');
             }
         });
     </script>

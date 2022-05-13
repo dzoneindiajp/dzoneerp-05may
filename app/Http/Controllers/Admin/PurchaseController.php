@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PurchaseRequest;
 use App\Models\Category;
+use App\Models\DamagePurchase;
 use App\Models\Product;
 use App\Models\Purchase;
+use App\Models\ReturnPurchase;
 use App\Models\Supplier;
 use App\Models\Unit;
 use App\Models\User;
@@ -115,10 +117,19 @@ class PurchaseController extends Controller
         $purchase = Purchase::find($id);
         $products = Product::get();
         $units =  Unit::get();
-        $suppliers =  Supplier::where('status', 1)->get();
-        $vendors =  Vendor::where('status', 1)->get();
+        $damagePurchase = DamagePurchase::where('purchase_id',$purchase->id)->first();
+        $returnPurchase = ReturnPurchase::where('purchase_id',$purchase->id)->first();
 
-        return view('admin.purchases.show', compact('products', 'units', 'suppliers', 'vendors','purchase'));
+        if($purchase->user_type == 0){
+            // $suppliers =  Supplier::where('status', 1)->where('id',$purchase->user_id)->first();
+            $user =  Supplier::where('status', 1)->where('id',$purchase->user_id)->first();
+        }else{
+            // $vendors =  Vendor::where('status', 1)->where('id',$purchase->user_id)->first();
+            $user =  Vendor::where('status', 1)->where('id',$purchase->user_id)->first();
+        }
+
+        // return view('admin.purchases.show', compact('products', 'units', 'suppliers', 'vendors','purchase'));
+        return view('admin.purchases.show', compact('products', 'units', 'user','purchase','damagePurchase','returnPurchase'));
     }
 
     /**

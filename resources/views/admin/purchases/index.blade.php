@@ -40,7 +40,6 @@
                 <table id="example" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
-
                             <th>
                                 {{ trans('cruds.purchase.fields.id') }}
                             </th>
@@ -51,7 +50,7 @@
                                 {{ trans('cruds.purchase.fields.date') }}
                             </th>
                             <th>
-                                {{ trans('cruds.purchase.fields.usertype') }}
+                                {{ trans('cruds.purchase.fields.user') }}
                             </th>
                             <th>
                                 {{ trans('cruds.purchase.fields.qty') }}
@@ -59,7 +58,7 @@
                             <th>
                                 {{ trans('cruds.purchase.fields.grandtotal') }}
                             </th>
-                            <th>
+                            <th width='5%'>
                                 {{ trans('cruds.purchase.fields.note') }}
                             </th>
                             <th>
@@ -84,11 +83,12 @@
                                 <td>
                                     {{ $c->purchase_date }}
                                 </td>
+
                                 <td>
-                                    @if ($c->user_type == 0)
-                                        Supplier
+                                    @if($c->user_type == 0)
+                                        {{ \App\Models\Supplier::where('id',$c->user_id)->first()->name ?? '--' }}
                                     @else
-                                        Vendor
+                                        {{ \App\Models\Vendor::where('id',$c->user_id)->first()->name ?? '--' }}
                                     @endif
                                 </td>
                                 <td>
@@ -105,7 +105,7 @@
                                     {{ $c->grand_total }}
                                 </td>
                                 <td>
-                                    {{ $c->purchase_note ? substr($c->purchase_note, 0, 50) . '...' : '' }}
+                                    {!! $c->purchase_note ? substr($c->purchase_note, 0, 50) . '...' : '' !!}
                                 </td>
 
                                 <td>
@@ -289,7 +289,8 @@
                 var btns = $('.dt-button');
                 btns.addClass('btn btn-secondary btn-sm m-1');
                 btns.removeClass('dt-button');
-
+                var btn1 = $('.pagination').find('.paginate_button');
+                btn1.removeClass('paginate_button');
             }
         });
     });

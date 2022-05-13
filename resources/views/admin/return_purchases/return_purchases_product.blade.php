@@ -16,6 +16,7 @@
             </thead>
             <tbody>
                 @for ($i = 0; $i < count(json_decode($purchase->product_id, true)); $i++)
+                <input type="hidden" name="minDate" id="minDate" value="{{ $purchase->purchase_date }}">
                     <tr class="productlist">
                         <td>
                             @foreach ($products as $product)
@@ -81,9 +82,7 @@
                     </tr>
                 @endfor
             </tbody>
-
         </table>
-
     </div>
 
 @endif

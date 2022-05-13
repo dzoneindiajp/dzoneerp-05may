@@ -54,6 +54,7 @@ class ReturnPurchaseController extends Controller
         $res[0] = $isRecord;
         $res[1] = $purchases;
 
+
         if ($request->return_qty == 0) {
             return response()->view('admin.return_purchases.return_purchases_product', compact('res', 'products', 'units'));
         } else {
@@ -113,7 +114,7 @@ class ReturnPurchaseController extends Controller
         $return = ReturnPurchase::find($id);
         $products = Product::get();
         $units =  Unit::get();
-        $purchases = Purchase::where('status', 1)->get();
+        $purchases = Purchase::get();
 
         return view('admin.return_purchases.show', compact('products', 'units', 'purchases', 'return'));
     }
@@ -129,7 +130,7 @@ class ReturnPurchaseController extends Controller
         $return = ReturnPurchase::find($id);
         $products = Product::get();
         $units =  Unit::get();
-        $purchases = Purchase::where('status', 1)->get();
+        $purchases = Purchase::get();
 
         return view('admin.return_purchases.edit', compact('products', 'units', 'purchases', 'return'));
     }

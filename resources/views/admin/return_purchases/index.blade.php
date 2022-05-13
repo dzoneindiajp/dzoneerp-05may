@@ -110,7 +110,7 @@
                                     {{ $c->return_amount }}
                                 </td>
                                 <td>
-                                    {{ $c->return_note ? substr($c->return_note, 0, 50) . '...' : '' }}
+                                    {!! $c->return_note ? substr($c->return_note, 0, 50) . '...' : '' !!}
                                 </td>
 
                                 <td>
@@ -294,7 +294,8 @@
                 var btns = $('.dt-button');
                 btns.addClass('btn btn-secondary btn-sm m-1');
                 btns.removeClass('dt-button');
-
+                var btn1 = $('.pagination').find('.paginate_button');
+                btn1.removeClass('paginate_button');
             }
         });
     });
