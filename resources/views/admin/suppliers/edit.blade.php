@@ -132,7 +132,7 @@
                         <img src="{{ storage_path('app/supplier/1651816236.png') }}" style="width:50px;height:50px;border-radius:10px;">
                     @endif --}}
                     @if ($supplier->profile_image != null && file_exists(public_path('app/supplier/' . $supplier->profile_image)))
-                    <img src="{{ asset('app/supplier/' . $supplier->profile_image) }}" alt="No image" height="100" width="140">
+                    <img src="{{ asset('public/app/supplier/' . $supplier->profile_image) }}" alt="No image" height="100" width="140">
                 @endif
                 </div>
 

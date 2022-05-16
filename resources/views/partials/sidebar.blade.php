@@ -5,7 +5,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.home') }}">
                 <div class="sidebar-brand-icon ">
-                    <img src="{{ asset('img/dzone.jpeg') }}" style="height: 35px" alt="">
+                    <img src="{{ asset('public/img/dzone.jpeg') }}" style="height: 35px" alt="">
                     {{-- <i class="fas fa-laugh-wink"></i> --}}
 
                 </div>
@@ -86,11 +86,37 @@
                 </a>
                 <div id="collapsethree" class="collapse {{ Request::is("admin/colors*")? "show" : "" }}  {{ Request::is("admin/sizes*")? "show" : "" }}  {{ Request::is("admin/units*")? "show" : "" }}"  data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item {{ Request::is('admin/sizes')? "active" : "" }}" href="{{ route("admin.sizes.index") }}"><i class="fas fa-plus-circle" aria-hidden="true"></i>Size Manager</a>
-                        <a class="collapse-item {{ Request::is('admin/colors')? "active" : "" }}"  href="{{ route("admin.colors.index") }}"><i class="fas fa-fill-drip" aria-hidden="true"></i>Color Manager</a>
-                        <a class="collapse-item {{ Request::is('admin/units')? "active" : "" }}" href="{{ route("admin.units.index")  }}"><i class="fas fa-weight" aria-hidden="true"></i>Unit Manager</a>
+                        <a class="collapse-item {{ Request::is('admin/sizes')? "active" : "" }}" href="{{ route("admin.sizes.index") }}"><i class="fas fa-plus-circle" aria-hidden="true"></i>&nbsp;Size Manager</a>
+                        <a class="collapse-item {{ Request::is('admin/colors')? "active" : "" }}"  href="{{ route("admin.colors.index") }}"><i class="fas fa-fill-drip" aria-hidden="true"></i>&nbsp;Color Manager</a>
+                        <a class="collapse-item {{ Request::is('admin/units')? "active" : "" }}" href="{{ route("admin.units.index")  }}"><i class="fas fa-weight" aria-hidden="true"></i>&nbsp;Unit Manager</a>
+                        {{-- <a class="collapse-item {{ Request::is('admin/showrooms')? "active" : "" }}" href="{{ route("admin.showrooms.index")  }}"><i class="fas fa-weight" aria-hidden="true"></i>&nbsp;Showroom</a> --}}
                     </div>
                 </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-labelledby="headingfour" data-target="#collapsef" aria-expanded="true" aria-controls="collapseOne">
+                  <i class="fa nav-icon fa-file"></i>
+                  <span>Reports</span>
+              </a>
+              <div id="collapsef" class="collapse {{ Request::is("admin/reports/purchase*")? "show" : "" }}"  data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                      <a class="collapse-item {{ Request::is('admin/reports/purchase')? "active" : "" }}"  href="{{ route("admin.reports.purchase.index") }}"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Purchase Reports</a>
+                      {{-- <a class="collapse-item"  href="#"><i class="fa fa-car" aria-hidden="true"></i>&nbsp;Balance Sheet</a>
+                      <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Financial Analysis</a>
+                      <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Use Access Reports</a>
+                      <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Sale Registers</a>
+                      <a class="collapse-item" href="#"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Financial Reports</a>
+                      <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Sale Challan Reports</a>
+                      <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Scheme Reports</a>
+                      <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Order Reports</a>
+                      <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Agent Wise Reports</a>
+                      <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Item Reports</a>
+                      <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Stock Reports</a>
+                      <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Excise Reports</a> --}}
+
+                  </div>
+              </div>
             </li>
 
                {{-- <li class="nav-item">

@@ -1,10 +1,6 @@
 @extends('layouts.master')
 @section('content')
-    <script src="{{ asset('assets/editor/ckeditor.js') }}"></script>
-    <script src="{{ asset('assets/editor/sample.js') }}"></script>
-    <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('assets/editor/sample2.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('assets/editor/toolbarconfigurator/lib/codemirror/neo.css') }}">
+
 
 
     <div class="card">
@@ -69,7 +65,7 @@
                         <img src="{{ asset('storage/app/product/' . $product->productimage) }}" alt="No image">
                     @endif --}}
                     @if ($product->productimage != null && file_exists(public_path('app/product/' . $product->productimage)))
-                        <img src="{{ asset('app/product/' . $product->productimage) }}" alt="No image" height="100" width="140">
+                        <img src="{{ asset('public/app/product/' . $product->productimage) }}" alt="No image" height="100" width="140">
                     @endif
                 </div>
 

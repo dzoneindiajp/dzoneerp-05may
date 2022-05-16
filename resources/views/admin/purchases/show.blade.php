@@ -1,10 +1,6 @@
 @extends('layouts.master')
 @section('content')
-    <script src="{{ asset('assets/editor/ckeditor.js') }}"></script>
-    <script src="{{ asset('assets/editor/sample.js') }}"></script>
-    <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('assets/editor/sample2.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('assets/editor/toolbarconfigurator/lib/codemirror/neo.css') }}">
+
 
 
     @if ($errors->any())
@@ -275,7 +271,7 @@
                 <div class="form-group">
                     <label class="" for="image">{{ trans('cruds.purchase.fields.image') }}</label><br>
                     @if ($purchase->purchase_image != null && file_exists(public_path('app/purchase/' . $purchase->purchase_image)))
-                        <img src="{{ asset('app/purchase/' . $purchase->purchase_image) }}" alt="No image" height="100"
+                        <img src="{{ asset('public/app/purchase/' . $purchase->purchase_image) }}" alt="No image" height="100"
                             width="140">
                     @endif
                 </div>
@@ -485,7 +481,7 @@
                             </div>
                             <div class="col-md-12 col-lg-12 text-center justify-content-center align-self-center">
                                 @if ($purchase->purchase_image != null && file_exists(public_path('app/purchase/' . $purchase->purchase_image)))
-                                    <img src="{{ asset('app/purchase/' . $purchase->purchase_image) }}" alt="No image"
+                                    <img src="{{ asset('public/app/purchase/' . $purchase->purchase_image) }}" alt="No image"
                                         height="360" width="640">
                                 @endif
 

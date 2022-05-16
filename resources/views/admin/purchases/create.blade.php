@@ -1,10 +1,6 @@
 @extends('layouts.master')
 @section('content')
-    <script src="{{ asset('assets/editor/ckeditor.js') }}"></script>
-    <script src="{{ asset('assets/editor/sample.js') }}"></script>
-    <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('assets/editor/sample2.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('assets/editor/toolbarconfigurator/lib/codemirror/neo.css') }}">
+
 
 
     @if ($errors->any())

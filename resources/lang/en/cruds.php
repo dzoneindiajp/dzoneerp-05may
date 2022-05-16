@@ -486,6 +486,50 @@ return [
             'status'                        => 'Status',
             'status_helper'                 => '',
         ]
+    ],
+
+    'showrooms' => [
+        'title'           => 'Showroom',
+        'title_singular'  => 'Showroom',
+        'fields'          => [
+            'id'                            => 'ID',
+            'id_helper'                     => ' ',
+            'name'                          => 'Showroom Name',
+            'name_helper'                   => '',
+            'code'                          => 'Showroom Code',
+            'code_helper'                   => '',
+            'manager_name'                  => 'Showroom Manager',
+            'manager_name_helper'           => '',
+            'email'                         => 'Email Address',
+            'email_helper'                  => '',
+            'phone'                         => 'Phone Number',
+            'phone_helper'                  => '',
+            'address'                       => 'Showroom Address',
+            'address_helper'                => '',
+            'note'                          => 'Showroom Note',
+            'note_helper'                   => '',
+            'status'                        => 'Status',
+            'status_helper'                 => '',
+        ]
+    ],
+
+    'purchasereport' => [
+        'title'           => 'Purchase Report',
+        'title_singular'  => 'Purchase Report',
+        'fields'          => [
+            'id'                            => 'ID',
+            'id_helper'                     => ' ',
+            'transport'                     => 'Transport',
+            'transport_helper'              => '',
+            'total'                         => 'Total',
+            'total_helper'                  => '',
+            'paid'                          => 'Paid',
+            'paid_helper'                   => '',
+            'due'                           => 'Due',
+            'due_helper'                    => '',
+            'status'                        => 'Status',
+            'status_helper'                 => '',
+        ]
     ]
 
 ];

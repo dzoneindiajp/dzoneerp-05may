@@ -24,15 +24,15 @@
 
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.finished.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.finished.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.showrooms.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.showrooms.title_singular') }}
             </a>
         </div>
     </div>
 
     <div class="card w-100">
         <div class="card-header">
-            {{ trans('cruds.finished.title_singular') }} {{ trans('global.list') }}
+            {{ trans('cruds.showrooms.title_singular') }} {{ trans('global.list') }}
         </div>
 
         <div class="card-body w-100">
@@ -41,19 +41,22 @@
                     <thead>
                         <tr>
                             <th>
-                                {{ trans('cruds.finished.fields.id') }}
+                                {{ trans('cruds.showrooms.fields.id') }}
                             </th>
                             <th>
-                                {{ trans('cruds.finished.fields.code') }}
+                                {{ trans('cruds.showrooms.fields.code') }}
                             </th>
                             <th>
-                                {{ trans('cruds.finished.fields.product') }}
+                                {{ trans('cruds.showrooms.fields.manager_name') }}
                             </th>
                             <th>
-                                {{ trans('cruds.finished.fields.date') }}
+                                {{ trans('cruds.showrooms.fields.email') }}
                             </th>
                             <th>
-                                {{ trans('cruds.finished.fields.note') }}
+                                {{ trans('cruds.showrooms.fields.phone') }}
+                            </th>
+                            <th>
+                                {{ trans('cruds.showrooms.fields.address') }}
                             </th>
                             <th>
                                 Action
@@ -64,41 +67,43 @@
                         @php
                             $i = 0;
                         @endphp
-                        @foreach ($finished as $c)
+                        @foreach ($showrooms as $c)
                             <tr>
                                 <td>
                                     {{ ++$i }}
                                 </td>
                                 <td>
-                                    <a class="text-decoration-none" href="{{ route('admin.finished.edit', $c->id) }}">
-                                        {{ $c->finished_code }}
+                                    <a class="text-decoration-none" href="{{ route('admin.showrooms.edit', $c->id) }}">
+                                        {{ $c->code }}
                                     </a>
                                 </td>
+
                                 <td>
-                                    <a class="text-decoration-none" href="{{ route('admin.processings.edit', $c->processing->id) }}">
-                                        {{ $c->processing->processing_code }}
-                                    </a>
+                                    {{ $c->manager_name }}
                                 </td>
                                 <td>
-                                    {{ $c->start_date }}
+                                    {{ $c->email }}
                                 </td>
                                 <td>
-                                    {!! $c->finished_note ? substr($c->finished_note, 0, 50) . '...' : '' !!}
+                                    {{ $c->phone }}
+                                </td>
+                                <td>
+                                    {!! $c->address ? substr($c->address, 0, 50)  : '' !!}
                                 </td>
 
                                 <td>
 
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.finished.show', $c->id) }}">
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.showrooms.show', $c->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
 
 
 
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.finished.edit', $c->id) }}">
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.showrooms.edit', $c->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
 
-                                    <form action="{{ route('admin.finished.destroy', $c->id) }}" method="POST"
+                                    <form action="{{ route('admin.showrooms.destroy', $c->id) }}" method="POST"
                                         onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
                                         style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
@@ -200,7 +205,7 @@
                                     // {
                                     // 	alignment: 'left',
                                     // 	fontSize: 14,
-                                    // 	text: 'All finished',
+                                    // 	text: 'All showrooms',
                                     // }
                                 ],
                                 margin: 20

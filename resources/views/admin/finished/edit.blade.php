@@ -1,10 +1,6 @@
 @extends('layouts.master')
 @section('content')
-    <script src="{{ asset('assets/editor/ckeditor.js') }}"></script>
-    <script src="{{ asset('assets/editor/sample.js') }}"></script>
-    <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('assets/editor/sample2.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('assets/editor/toolbarconfigurator/lib/codemirror/neo.css') }}">
+
 
 
     @if ($errors->any())
@@ -77,7 +73,7 @@
                     <label class="required" for="old_image">{{ trans('Old') }}
                         {{ trans('cruds.finished.fields.image') }}</label><br>
                     @if ($finished->finished_image != null && file_exists(public_path('app/finished/' . $finished->finished_image)))
-                        <img src="{{ asset('app/finished/' . $finished->finished_image) }}" alt="No image" height="100" width="140">
+                        <img src="{{ asset('public/app/finished/' . $finished->finished_image) }}" alt="No image" height="100" width="140">
                     @endif
                 </div>
 

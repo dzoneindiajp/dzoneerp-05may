@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2022 at 03:43 PM
+-- Generation Time: May 16, 2022 at 04:29 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -369,6 +369,40 @@ INSERT INTO `damage_purchases` (`id`, `damage_code`, `damage_reason`, `purchase_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `finisheds`
+--
+
+CREATE TABLE `finisheds` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `processing_id` bigint(20) UNSIGNED NOT NULL,
+  `purchase_id` bigint(20) UNSIGNED NOT NULL,
+  `finished_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `purchase_qty` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `available_qty` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `unit_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `used_qty` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `finished_note` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `finished_date` date DEFAULT NULL,
+  `finished_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0 - InActive , 1 - Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `finisheds`
+--
+
+INSERT INTO `finisheds` (`id`, `processing_id`, `purchase_id`, `finished_code`, `product_name`, `purchase_qty`, `available_qty`, `unit_name`, `used_qty`, `finished_note`, `finished_date`, `finished_image`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 10, 'FINISHED - 1', '[\"test\",\"test\"]', '[\"111\",\"23\"]', '[\"74\",\"17\"]', '[\"Height\",\"Height\"]', '[\"54\",\"3\"]', '<p>test</p>', '2022-05-26', NULL, 1, '2022-05-13 07:48:18', '2022-05-13 07:48:18'),
+(2, 2, 13, 'FINISHED - 2', '[\"test\"]', '[\"11\"]', '[\"9\"]', '[\"Height\"]', '[\"2\"]', '<p>hello</p>', '2022-05-21', NULL, 1, '2022-05-13 07:52:23', '2022-05-13 08:12:47'),
+(3, 3, 11, 'FINISHED - 3', '[\"test\",\"new product\"]', '[\"2\",\"26\"]', '[\"0\",\"12\"]', '[\"Height\",\"Height\"]', '[\"0\",\"6\"]', '<p>test</p>', '2022-05-28', NULL, 1, '2022-05-13 08:18:03', '2022-05-13 08:18:03'),
+(4, 3, 11, 'FINISHED - 4', '[\"test\",\"new product\"]', '[\"2\",\"26\"]', '[\"0\",\"12\"]', '[\"Height\",\"Height\"]', '[\"0\",\"10\"]', '<p>HELLO WORLD</p>', '2022-05-27', 'purchase_1652452012.jpg', 1, '2022-05-13 08:55:34', '2022-05-13 08:56:52');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -418,7 +452,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (37, '2022_05_09_091631_create_products_table', 5),
 (40, '2022_05_10_053107_create_purchases_table', 6),
 (44, '2022_05_11_091754_create_return_purchases_table', 7),
-(47, '2022_05_11_130115_create_damage_purchases_table', 8);
+(47, '2022_05_11_130115_create_damage_purchases_table', 8),
+(55, '2022_05_13_052554_create_processings_table', 9),
+(56, '2022_05_13_092310_create_finisheds_table', 9),
+(57, '2022_05_16_045720_create_showrooms_table', 10);
 
 -- --------------------------------------------------------
 
@@ -761,6 +798,35 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `processings`
+--
+
+CREATE TABLE `processings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `purchase_id` bigint(20) UNSIGNED NOT NULL,
+  `processing_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `start_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `end_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `processing_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0 - InActive, 1 - Active',
+  `processing_note` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `processings`
+--
+
+INSERT INTO `processings` (`id`, `purchase_id`, `processing_code`, `start_date`, `end_date`, `processing_image`, `status`, `processing_note`, `created_at`, `updated_at`) VALUES
+(1, 10, 'PRO - 1', '2022-05-21', NULL, 'processing_1652700545.jpg', 1, '<p>test</p>', '2022-05-13 07:42:29', '2022-05-16 05:59:05'),
+(2, 13, 'PRO - 2', '2022-05-14', '2022-05-24', NULL, 1, '<p>process</p>', '2022-05-13 07:51:53', '2022-05-13 08:12:18'),
+(3, 11, 'PRO - 3', '2022-05-18', '2022-05-28', NULL, 1, '<p>test</p>', '2022-05-13 08:17:31', '2022-05-13 08:17:31'),
+(4, 11, 'PRO - 4', '2022-05-26', NULL, 'processing_1652451790.png', 1, '<p>12345</p>', '2022-05-13 08:52:30', '2022-05-13 08:53:27');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `products`
 --
 
@@ -820,8 +886,8 @@ CREATE TABLE `purchases` (
 
 INSERT INTO `purchases` (`id`, `purchase_code`, `purchase_date`, `user_type`, `user_id`, `product_id`, `product_qty`, `unit_id`, `unit_price`, `discount`, `subtotal`, `total_discount`, `transport_cost`, `grand_total`, `total_paid`, `payment_type`, `purchase_note`, `purchase_image`, `status`, `created_at`, `updated_at`) VALUES
 (10, 'PUR - 9', '2022-05-21', 1, 4, '[\"5\",\"5\"]', '[\"111\",\"23\"]', '[\"1\",\"1\"]', '[\"11\",\"2\"]', '[\"1\",\"3\"]', 1253.4099999999999, 13.59, 11, 1264.4099999999999, 0, 0, '11', NULL, 1, '2022-05-11 03:39:10', '2022-05-11 05:26:33'),
-(11, 'PUR - 11', '2022-05-19', 0, 8, '[\"5\",\"6\"]', '[\"2\",\"26\"]', '[\"1\",\"1\"]', '[\"2\",\"20\"]', '[\"5\",\"0\"]', 523.8, 0.2, 10, 533.8, 0, 0, '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum debitis iusto itaque voluptas quam veniam aliquid quisquam! A aliquid, autem inventore labore et natus eligendi, distinctio aut, quos dolor qui?Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum debitis iusto itaque voluptas quam veniam aliquid quisquam! A aliquid, autem inventore labore et natus eligendi, distinctio aut, quos dolor qui?Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum debitis iusto itaque voluptas quam veniam aliquid quisquam! A aliquid, autem inventore labore et natus eligendi, distinctio aut, quos dolor qui?</p>', 'Purchase_1652360061.png', 0, '2022-05-11 03:40:37', '2022-05-12 07:35:51'),
-(12, 'PUR - 12', '2022-05-14', 1, 4, '[\"5\",\"5\"]', '[\"10\",\"2\"]', '[\"1\",\"1\"]', '[\"2\",\"500\"]', '[\"00\",\"2\"]', 1000, 20, 0, 1000, 0, 0, '<p>purchase</p>', NULL, 1, '2022-05-11 09:11:57', '2022-05-12 07:36:00'),
+(11, 'PUR - 11', '2022-05-19', 0, 8, '[\"5\",\"6\"]', '[\"2\",\"26\"]', '[\"1\",\"1\"]', '[\"2\",\"20\"]', '[\"5\",\"0\"]', 523.8, 0.2, 10, 533.8, 0, 0, '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum debitis iusto itaque voluptas quam veniam aliquid quisquam! A aliquid, autem inventore labore et natus eligendi, distinctio aut, quos dolor qui?Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum debitis iusto itaque voluptas quam veniam aliquid quisquam! A aliquid, autem inventore labore et natus eligendi, distinctio aut, quos dolor qui?Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum debitis iusto itaque voluptas quam veniam aliquid quisquam! A aliquid, autem inventore labore et natus eligendi, distinctio aut, quos dolor qui?</p>', 'Purchase_1652360061.png', 1, '2022-05-10 03:40:37', '2022-05-13 05:23:00'),
+(12, 'PUR - 12', '2022-05-14', 1, 4, '[\"5\",\"5\"]', '[\"10\",\"2\"]', '[\"1\",\"1\"]', '[\"2\",\"500\"]', '[\"00\",\"2\"]', 1000, 20, 0, 1000, 0, 0, '<p>purchase</p>', NULL, 1, '2022-05-09 09:11:57', '2022-05-12 07:36:00'),
 (13, 'PUR - 13', '2022-05-13', 1, 4, '[\"5\"]', '[\"11\"]', '[\"1\"]', '[\"45\"]', '[\"1\"]', 490.05, 4.95, 0, 490.05, 0, 0, '<p>Purchase <strong>Note cccc ff<s>df</s>fd</strong></p>', NULL, 1, '2022-05-11 23:42:08', '2022-05-11 23:43:52');
 
 -- --------------------------------------------------------
@@ -850,9 +916,9 @@ CREATE TABLE `return_purchases` (
 --
 
 INSERT INTO `return_purchases` (`id`, `return_code`, `return_reason`, `purchase_id`, `return_date`, `returnqty`, `return_amount`, `return_note`, `return_image`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'RETURN - 1', 'return this product', 11, '2022-05-10', '[\"2\",\"10\"]', 55, '<p>return note</p>', 'return_purchase_1652279843.jpg', 0, '2022-05-11 06:09:16', '2022-05-12 02:01:39'),
 (6, 'RETURN - 6', 'Return Reason', 12, '2022-05-13', '[\"5\",\"1\"]', 120, 'test note', 'return_purchase_1652280498.png', 1, '2022-05-11 09:14:02', '2022-05-11 09:18:18'),
-(7, 'RETURN - 7', 'need return this product', 13, '2022-05-11', '[\"2\"]', 2, '<p>test producct</p>', NULL, 1, '2022-05-11 23:44:56', '2022-05-12 00:02:45');
+(7, 'RETURN - 7', 'need return this product', 13, '2022-05-11', '[\"2\"]', 2, '<p>test producct</p>', NULL, 1, '2022-05-11 23:44:56', '2022-05-12 00:02:45'),
+(8, 'RETURN - 8', 'reason', 10, '2022-05-26', '[\"37\",\"6\"]', 0, '<p>return note</p>', NULL, 1, '2022-05-13 05:20:07', '2022-05-13 05:20:07');
 
 -- --------------------------------------------------------
 
@@ -896,6 +962,33 @@ CREATE TABLE `role_user` (
 
 INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
 (1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `showrooms`
+--
+
+CREATE TABLE `showrooms` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `manager_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `note` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0 - InActive , 1 -Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `showrooms`
+--
+
+INSERT INTO `showrooms` (`id`, `name`, `code`, `manager_name`, `email`, `phone`, `address`, `note`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'my showroom', '123', 'manager', 'showroom1@gmail.com', '11111111111', 'address', '<p>note</p>', 1, '2022-05-16 00:33:59', '2022-05-16 00:33:59');
 
 -- --------------------------------------------------------
 
@@ -946,7 +1039,7 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id`, `user_id`, `name`, `email`, `country`, `phone`, `profile_image`, `company_name`, `destignation`, `address`, `status`, `created_at`, `updated_at`) VALUES
-(5, 38, 'staf', 'staf@gmail.com', NULL, NULL, '1652158593.png', 'ksfdhhddkjhjk', 'fdsfdfdsfdsf', 'addr', 1, '2022-05-09 23:26:33', '2022-05-09 23:26:33');
+(5, 38, 'staf', 'staf@gmail.com', NULL, NULL, '1652700497.jpg', 'ksfdhhddkjhjk', 'fdsfdfdsfdsf', 'addr', 1, '2022-05-09 23:26:33', '2022-05-16 05:58:17');
 
 -- --------------------------------------------------------
 
@@ -975,7 +1068,7 @@ CREATE TABLE `suppliers` (
 --
 
 INSERT INTO `suppliers` (`id`, `user_id`, `name`, `email`, `country`, `phone`, `profile_image`, `company_name`, `destignation`, `address`, `status`, `created_at`, `updated_at`) VALUES
-(8, 39, 'supplier', 'supplier2@gmail.com', NULL, NULL, '1652166384.jpg', 'suppli com', 'destignition', 'addr', 1, '2022-05-10 01:36:24', '2022-05-10 01:36:24');
+(8, 39, 'supplier', 'supplier2@gmail.com', NULL, NULL, '1652700418.png', 'suppli com', 'destignition', 'addr', 1, '2022-05-10 01:36:24', '2022-05-16 05:56:58');
 
 -- --------------------------------------------------------
 
@@ -1030,11 +1123,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `address`, `phone`, `country`, `gender`, `user_type`, `email_verified_at`, `approved`, `verified`, `verified_at`, `verification_token`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'admin@admin.com', 'address', NULL, 'Afghanistan >Afghanistan</option>\r\n                                            <option value=', '', 1, NULL, 1, 1, '2022-03-07 19:39:23', '', '$2y$10$okrWpBiMZv6bZC7tEOafruhgGZcCJHvNu0leDixVJMalcNL5prOoC', 'NwFYLjivVe3E31Vg7tx2KJzSoShCuRjnM1dRRb0yt7W8kUCPEDPv59Fq3I0n', NULL, '2022-05-09 00:52:22', NULL),
+(1, 'Admin', 'admin@admin.com', 'address', NULL, 'Afghanistan >Afghanistan</option>\r\n                                            <option value=', '', 1, NULL, 1, 1, '2022-03-07 19:39:23', '', '$2y$10$okrWpBiMZv6bZC7tEOafruhgGZcCJHvNu0leDixVJMalcNL5prOoC', 'OfV90Se45p8MbuCsLhZvUUEloLecc3dMtdRoZ56tnGn5HcTPezvDpC3KxPEl', NULL, '2022-05-09 00:52:22', NULL),
 (22, 'Mahesh', 'maheshjangir219@gmail.com', 'vyas apartment\r\nvyas apartment', '07709404627', '', '', 3, NULL, 1, 1, '2022-05-06 06:30:12', NULL, '$2y$10$Hu71S97omDmeK4mOkUjhK.h8om1PNEIrn1ugJFPJ70DHs9m58EYhS', NULL, '2022-05-06 01:00:12', '2022-05-09 03:21:30', NULL),
-(38, 'staf', 'staf@gmail.com', 'addr', '', '', '', 3, NULL, 1, 1, '2022-05-10 04:56:33', NULL, '$2y$10$OxZPswHO6O26Bnuykosn9..ma8XqS09tyhCbQiUiIgwcHmPyS3Psy', NULL, '2022-05-09 23:26:33', '2022-05-09 23:26:33', NULL),
-(39, 'supplier', 'supplier2@gmail.com', 'addr', '', '', '', 2, NULL, 1, 1, '2022-05-10 07:06:24', NULL, '$2y$10$oJw2pIPiHJZ399QcWFuK0eNkZf34Vld1CJbfX5EoMAE28ghPOP2D6', NULL, '2022-05-10 01:36:24', '2022-05-10 01:36:24', NULL),
-(40, 'vendor', 'vendor@gmail.com', '12345678', '', '', '', 3, NULL, 1, 1, '2022-05-10 07:07:01', NULL, '$2y$10$nyhPxw79QWp34.CDJWSsgOlFplQUXon2iTEo42bAMk1TVN6ovApJu', NULL, '2022-05-10 01:37:01', '2022-05-10 01:37:01', NULL);
+(38, 'staf', 'staf@gmail.com', 'addr', '', '', '', 3, NULL, 1, 1, '2022-05-10 04:56:33', NULL, '$2y$10$zVqoBAfDAMEh6qgXA88r8.JUsO/bj7.da8.Gj3QpsEy65dN3BR5gW', NULL, '2022-05-09 23:26:33', '2022-05-16 05:58:17', NULL),
+(39, 'supplier', 'supplier2@gmail.com', 'addr', '', '', '', 2, NULL, 1, 1, '2022-05-10 07:06:24', NULL, '$2y$10$vTCaor5AcFVmgp/bFMBkG.OOkitip.aad/O1uVtodsqeOeRLJdyoq', NULL, '2022-05-10 01:36:24', '2022-05-16 05:56:58', NULL),
+(40, 'vendor', 'vendor@gmail.com', '12345678', '', '', '', 3, NULL, 1, 1, '2022-05-10 07:07:01', NULL, '$2y$10$efJzXTSJC7WxXVC8popAveBFjs2gIUHm4/dyHGvjmoQ4ydfMa2rM.', NULL, '2022-05-10 01:37:01', '2022-05-16 05:58:28', NULL);
 
 -- --------------------------------------------------------
 
@@ -1063,7 +1156,7 @@ CREATE TABLE `vendors` (
 --
 
 INSERT INTO `vendors` (`id`, `user_id`, `name`, `email`, `country`, `phone`, `profile_image`, `company_name`, `destignation`, `address`, `status`, `created_at`, `updated_at`) VALUES
-(4, 40, 'vendor', 'vendor@gmail.com', NULL, NULL, '1652166421.png', '12345678', '123', '12345678', 1, '2022-05-10 01:37:01', '2022-05-10 01:37:01');
+(4, 40, 'vendor', 'vendor@gmail.com', NULL, NULL, '1652700508.png', '12345678', '123', '12345678', 1, '2022-05-10 01:37:01', '2022-05-16 05:58:28');
 
 --
 -- Indexes for dumped tables
@@ -1094,6 +1187,15 @@ ALTER TABLE `damage_purchases`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `damage_purchases_damage_code_unique` (`damage_code`),
   ADD KEY `damage_purchases_purchase_id_foreign` (`purchase_id`);
+
+--
+-- Indexes for table `finisheds`
+--
+ALTER TABLE `finisheds`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `finisheds_finished_code_unique` (`finished_code`),
+  ADD KEY `finisheds_processing_id_foreign` (`processing_id`),
+  ADD KEY `finisheds_purchase_id_foreign` (`purchase_id`);
 
 --
 -- Indexes for table `migrations`
@@ -1129,6 +1231,13 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `processings`
+--
+ALTER TABLE `processings`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `processings_purchase_id_foreign` (`purchase_id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -1162,6 +1271,14 @@ ALTER TABLE `roles`
 ALTER TABLE `role_user`
   ADD KEY `user_id_fk_6156271` (`user_id`),
   ADD KEY `role_id_fk_6156271` (`role_id`);
+
+--
+-- Indexes for table `showrooms`
+--
+ALTER TABLE `showrooms`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `showrooms_code_unique` (`code`),
+  ADD UNIQUE KEY `showrooms_email_unique` (`email`);
 
 --
 -- Indexes for table `sizes`
@@ -1235,10 +1352,16 @@ ALTER TABLE `damage_purchases`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `finisheds`
+--
+ALTER TABLE `finisheds`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -1251,6 +1374,12 @@ ALTER TABLE `permissions`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `processings`
+--
+ALTER TABLE `processings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -1268,13 +1397,19 @@ ALTER TABLE `purchases`
 -- AUTO_INCREMENT for table `return_purchases`
 --
 ALTER TABLE `return_purchases`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `showrooms`
+--
+ALTER TABLE `showrooms`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sizes`
@@ -1323,11 +1458,24 @@ ALTER TABLE `damage_purchases`
   ADD CONSTRAINT `damage_purchases_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `finisheds`
+--
+ALTER TABLE `finisheds`
+  ADD CONSTRAINT `finisheds_processing_id_foreign` FOREIGN KEY (`processing_id`) REFERENCES `processings` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `finisheds_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `permission_role`
 --
 ALTER TABLE `permission_role`
   ADD CONSTRAINT `permission_id_fk_6156262` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_id_fk_6156262` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `processings`
+--
+ALTER TABLE `processings`
+  ADD CONSTRAINT `processings_purchase_id_foreign` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `products`

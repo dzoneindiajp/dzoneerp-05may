@@ -1,10 +1,6 @@
 @extends('layouts.master')
 @section('content')
-    <script src="{{ asset('assets/editor/ckeditor.js') }}"></script>
-    <script src="{{ asset('assets/editor/sample.js') }}"></script>
-    <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('assets/editor/sample2.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('assets/editor/toolbarconfigurator/lib/codemirror/neo.css') }}">
+
 
 
     @if ($errors->any())
@@ -93,7 +89,7 @@
                     <label class="required" for="old_image">{{ trans('Old') }}
                         {{ trans('cruds.damagepurchases.fields.image') }}</label><br>
                     @if ($damage->damage_image != null && file_exists(public_path('app/damage_purchase/' . $damage->damage_image)))
-                        <img src="{{ asset('app/damage_purchase/' . $damage->damage_image) }}" alt="No image" height="120"
+                        <img src="{{ asset('public/app/damage_purchase/' . $damage->damage_image) }}" alt="No image" height="120"
                             width="180">
                     @endif
                 </div>

@@ -20,7 +20,7 @@ Route::get('/404', function () {
     return view('errors.404');
 })->name('NotFound');
 
-Route::redirect('/', '/login');
+Route::redirect('/', 'login');
 Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
@@ -97,9 +97,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Colors
     Route::resource('colors', 'ColorsController');
+
     //Units
     Route::resource('units','UnitController');
 
+    //Showroom
+    Route::resource('showrooms','ShowroomController');
+
+    // Reports
+    Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {//reports purchase
+        Route::get('purchase','PurchaseReportController@index')->name('purchase.index');
+        Route::post('getReport','PurchaseReportController@getReport')->name('purchase.getReport');
+    });
 
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
