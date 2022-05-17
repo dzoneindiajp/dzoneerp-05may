@@ -80,7 +80,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    {{ $c->start_date }}
+                                    {{ date('d-M-Y',strtotime($c->finished_date)) }}
                                 </td>
                                 <td>
                                     {!! $c->finished_note ? substr($c->finished_note, 0, 50) . '...' : '' !!}

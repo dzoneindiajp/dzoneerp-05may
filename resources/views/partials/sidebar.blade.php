@@ -99,16 +99,16 @@
                   <i class="fa nav-icon fa-file"></i>
                   <span>Reports</span>
               </a>
-              <div id="collapsef" class="collapse {{ Request::is("admin/reports/purchase*")? "show" : "" }}"  data-parent="#accordionSidebar">
+              <div id="collapsef" class="collapse {{ Request::is("admin/reports/purchase*")? "show" : "" }} {{ Request::is('admin/reports/processingReport*')? "show" : "" }}  {{ Request::is('admin/reports/finishedReport*')? "show" : "" }}"  data-parent="#accordionSidebar">
                   <div class="bg-white py-2 collapse-inner rounded">
                       <a class="collapse-item {{ Request::is('admin/reports/purchase')? "active" : "" }}"  href="{{ route("admin.reports.purchase.index") }}"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Purchase Reports</a>
+                      <a class="collapse-item {{ Request::is('admin/reports/processingReport')? "active" : ""  }}"  href="{{ route("admin.reports.product.processingReport") }}"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Processing Product</a>
+                      <a class="collapse-item {{ Request::is('admin/reports/finishedReport')? "active" : ""  }}"  href="{{ route("admin.reports.product.finishedReport") }}"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Finished Product</a>
                       {{-- <a class="collapse-item"  href="#"><i class="fa fa-car" aria-hidden="true"></i>&nbsp;Balance Sheet</a>
-                      <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Financial Analysis</a>
                       <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Use Access Reports</a>
                       <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Sale Registers</a>
                       <a class="collapse-item" href="#"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Financial Reports</a>
                       <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Sale Challan Reports</a>
-                      <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Scheme Reports</a>
                       <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Order Reports</a>
                       <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Agent Wise Reports</a>
                       <a class="collapse-item"  href="#"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;Item Reports</a>

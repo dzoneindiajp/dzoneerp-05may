@@ -453,7 +453,7 @@
                                         </tr>
                                         <tr>
                                             <td><strong>Refund Amount:</strong>
-                                                ${{ (isset($returnPurchase)) ? number_format($returnPurchase->return_amount, 2) : 0}}
+                                                ${{ isset($returnPurchase) ? number_format($returnPurchase->return_amount, 2) : 0 }}
                                             </td>
                                         </tr>
                                         {{-- <tr>
@@ -469,9 +469,9 @@
                                         <tr>
                                             <td><strong>Status:</strong>
                                                 @if ($purchase->status == 1)
-                                                <span class="badge badge-success">Active</span>
+                                                    <span class="badge badge-success">Active</span>
                                                 @else
-                                                <span class="badge badge-danger">In Active</span>
+                                                    <span class="badge badge-danger">In Active</span>
                                                 @endif
                                             </td>
                                         </tr>
@@ -481,8 +481,8 @@
                             </div>
                             <div class="col-md-12 col-lg-12 text-center justify-content-center align-self-center">
                                 @if ($purchase->purchase_image != null && file_exists(public_path('app/purchase/' . $purchase->purchase_image)))
-                                    <img src="{{ asset('public/app/purchase/' . $purchase->purchase_image) }}" alt="No image"
-                                        height="360" width="640">
+                                    <img src="{{ asset('public/app/purchase/' . $purchase->purchase_image) }}"
+                                        alt="No image" height="360" width="640">
                                 @endif
 
                             </div>
@@ -589,7 +589,7 @@
                                             </tr>
                                             <tr>
                                                 <td><strong>Refund Amount:</strong>
-                                                    ${{ number_format($returnPurchase->return_amount,2) }}
+                                                    ${{ number_format($returnPurchase->return_amount, 2) }}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -600,9 +600,9 @@
                                             <tr>
                                                 <td><strong>Status:</strong>
                                                     @if ($returnPurchase->status == 1)
-                                                    <span class="badge badge-success">Active</span>
+                                                        <span class="badge badge-success">Active</span>
                                                     @else
-                                                    <span class="badge badge-danger">In Active</span>
+                                                        <span class="badge badge-danger">In Active</span>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -614,23 +614,141 @@
                     </div>
                 </div>
             @endif
+
+
+            @if (isset($damagePurchase))
+                <div class="row mt-5">
+                    <div class="card col-md-12">
+                        <div class="card-header">
+                            <h3 class="card-title">View damage products for purchase:
+                                {{ $damagePurchase->damage_code }}
+                            </h3>
+                        </div>
+                        <div class="card-body p-0 min-height-150">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12 table-responsive view-table">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>Purchased Code:</strong>
+                                                    {{ $damagePurchase->purchase->purchase_code }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Damage Reason:</strong>
+                                                    {{ $damagePurchase->damage_reason }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Damage Date:</strong>
+                                                    {{ date('d-M-Y', strtotime($damagePurchase->damage_date)) }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Purchase Products:</strong>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Product</th>
+                                                                    <th>Purchased Qty</th>
+                                                                    <th>Damage</th>
+                                                                    <th>Unit Price</th>
+                                                                    <th class="text-right">Total</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @for ($i = 0; $i < count(json_decode($damagePurchase->purchase->product_id, true)); $i++)
+                                                                    @foreach ($units as $unit)
+                                                                        @if ($unit->id == json_decode($purchase->unit_id, true)[$i])
+                                                                            @php $unitName = $unit->name @endphp
+                                                                        @endif
+                                                                    @endforeach
+
+                                                                    @php
+                                                                        $qty = json_decode($purchase->product_qty, true)[$i];
+                                                                        $unitprice = json_decode($purchase->unit_price, true)[$i];
+                                                                        $discount = json_decode($purchase->discount, true)[$i];
+
+                                                                        $return_qty = isset($returnPurchase) ? json_decode($returnPurchase->returnqty, true)[$i] : 0;
+                                                                        $damage_qty = isset($damagePurchase) ? json_decode($damagePurchase->damageqty, true)[$i] : 0;
+
+                                                                        $total = $qty * $unitprice;
+                                                                        $dis = ($total * $discount) / 100;
+                                                                        $producttotal = $total - $dis;
+                                                                    @endphp
+                                                                    <tr class="productlist pl-2">
+                                                                        <td>
+                                                                            {{ $i + 1 }}
+                                                                        </td>
+                                                                        <td>
+                                                                            @foreach ($products as $product)
+                                                                                @if ($product->id == json_decode($purchase->product_id, true)[$i])
+                                                                                    {{ $product->product_name }}
+                                                                                @endif
+                                                                            @endforeach
+                                                                        </td>
+
+                                                                        <td>
+                                                                            {{ $qty }} {{ $unitName }}
+                                                                        </td>
+
+                                                                        <td>
+                                                                            {{ $damage_qty }} {{ $unitName }}
+                                                                        </td>
+
+                                                                        <td>
+                                                                            ${{ $unitprice }}
+                                                                        </td>
+
+                                                                        <td class="text-right">
+                                                                            ${{ $producttotal }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endfor
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Note:</strong>
+                                                    {!! $damagePurchase->damage_note !!}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Status:</strong>
+                                                    @if ($damagePurchase->status == 1)
+                                                        <span class="badge badge-success">Active</span>
+                                                    @else
+                                                        <span class="badge badge-danger">In Active</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+
         </div>
     </div>
 
     <script>
         // CKEDITOR.replace('note');
         // CKEDITOR.add
-        $("#printMe").click(function() {
-            // $("#contentBox").printArea({
-            //     mode: 'popup',
-            //     popClose: true
-            // });
-            $('#contentBox').print({
-                append: "<br/>",
-                prepend: "<br/>",
-                deferred: $.Deferred(),
+        // $(".print-btn").click(function() {
+        //     $('#contentBox').print({
+        //         append: "<br/>",
+        //         prepend: "<br/>",
+        //         deferred: $.Deferred(),
 
-            });
-        });
+        //     });
+        // });
     </script>
 @endsection

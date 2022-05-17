@@ -79,7 +79,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // purchases
     Route::post('purchases/getUsers', 'PurchaseController@getUsers')->name('purchases.getUsers');
+    Route::get('purchases/{id}/invoice','PurchaseController@invoice')->name('purchases.invoice');
     Route::resource('purchases','PurchaseController');
+
 
     // return purchases
     Route::post('returnpurchases/getproducts', 'ReturnPurchaseController@getproducts')->name('returnpurchases.getproducts');
@@ -105,9 +107,33 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('showrooms','ShowroomController');
 
     // Reports
-    Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {//reports purchase
-        Route::get('purchase','PurchaseReportController@index')->name('purchase.index');
-        Route::post('getReport','PurchaseReportController@getReport')->name('purchase.getReport');
+    Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
+        //purchase report
+        Route::get('purchase','ReportController@index')->name('purchase.index');
+        Route::post('getReport','ReportController@getReport')->name('purchase.getReport');
+
+        //processing report
+        Route::get('processingReport','ReportController@processingReport')->name('product.processingReport');
+        Route::post('getprocessingReport','ReportController@getprocessingReport')->name('product.getprocessingReport');
+
+        //finished report
+        Route::get('finishedReport','ReportController@finishedReport')->name('product.finishedReport');
+        Route::post('getfinishedReport','ReportController@getfinishedReport')->name('product.getfinishedReport');
+    });
+    
+    // Reports
+    Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
+        //purchase report
+        Route::get('purchase','ReportController@index')->name('purchase.index');
+        Route::post('getReport','ReportController@getReport')->name('purchase.getReport');
+
+        //processing report
+        Route::get('processingReport','ReportController@processingReport')->name('product.processingReport');
+        Route::post('getprocessingReport','ReportController@getprocessingReport')->name('product.getprocessingReport');
+
+        //finished report
+        Route::get('finishedReport','ReportController@finishedReport')->name('product.finishedReport');
+        Route::post('getfinishedReport','ReportController@getfinishedReport')->name('product.getfinishedReport');
     });
 
 });

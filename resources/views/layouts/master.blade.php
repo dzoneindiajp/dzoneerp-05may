@@ -183,6 +183,24 @@
                 });
             })();
 
+            (function() {
+                "use strict";
+
+                // define advance select box
+                $(document).ready(function() {
+                    if ($('.print-btn').val() !== undefined) {
+                        $(".print-btn").click(function() {
+                            $('#contentBox').print({
+                                append: "<br/>",
+                                prepend: "<br/>",
+                                deferred: $.Deferred(),
+
+                            });
+                        });
+                    }
+                });
+            })();
+
             $(function() {
                 $('.datepicker').datetimepicker();
             });

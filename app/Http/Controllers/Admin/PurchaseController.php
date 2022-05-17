@@ -217,4 +217,19 @@ class PurchaseController extends Controller
         return redirect()->route('admin.purchases.index');
 
     }
+
+    public function invoice($id)
+    {
+
+        $purchase = Purchase::find($id);
+
+        if($purchase->user_type == 0){
+            $user =  Supplier::with('user')->where('status', 1)->where('id',$purchase->user_id)->first();
+        }else{
+            $user =  Vendor::with('user')->where('status', 1)->where('id',$purchase->user_id)->first();
+        }
+
+        return view('admin.purchases.invoice', compact('user','purchase'));
+
+    }
 }

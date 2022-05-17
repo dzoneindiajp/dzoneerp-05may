@@ -1,8 +1,5 @@
 @extends('layouts.master')
 @section('content')
-
-
-
     @if ($errors->any())
         <div class="alert alert-danger">
             <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -14,7 +11,7 @@
         </div>
     @endif
 
-    <div class="card">
+    {{-- <div class="card">
         <div class="card-header">
             {{ trans('global.show') }} {{ trans('cruds.finished.title_singular') }}
         </div>
@@ -132,5 +129,133 @@
                 $('#note_err').text('');
             }
         });
+    </script> --}}
+
+    <div class="content pb-4" id="contentBox" media="print">
+        <div class="container">
+            <div class="">
+                <div class="card p-2">
+                    <div class="card-header">
+                        <h3 class="card-title">View : {{ $finished->finished_code }}</h3>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 table-responsive view-table">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Processing Code:</strong>
+                                                {{ $finished->processing->processing_code }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Finished Date:</strong>
+                                                {{ date('d-M-Y',strtotime($finished->finished_date)) }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Products:</strong>
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="5%">#</th>
+                                                                <th width="12%">
+                                                                    {{ trans('cruds.finished.fields.product') }}</th>
+                                                                <th width="8%">
+                                                                    {{ trans('cruds.finished.fields.purchaseqty') }}
+                                                                <th width="8%">
+                                                                    {{ trans('cruds.finished.fields.availableqty') }}
+                                                                </th>
+                                                                <th width="8%">
+                                                                    {{ trans('cruds.finished.fields.usedqty') }}
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @for ($i = 0; $i < count(json_decode($finished->product_name, true)); $i++)
+                                                                @php
+                                                                    $qty = json_decode($finished->purchase_qty, true)[$i];
+                                                                    $unitName = json_decode($finished->unit_name, true)[$i];
+                                                                    $available_qty = json_decode($finished->available_qty, true)[$i];
+
+                                                                    $return_qty = isset($returnPurchase) ? json_decode($returnPurchase->returnqty, true)[$i] : 0;
+                                                                    $damage_qty = isset($damagePurchase) ? json_decode($damagePurchase->damageqty, true)[$i] : 0;
+
+                                                                    $product_name = json_decode($finished->product_name, true)[$i];
+                                                                    $used_qty = json_decode($finished->used_qty, true)[$i];
+                                                                @endphp
+
+                                                                <tr class="productlist pl-2">
+                                                                    <td>
+                                                                        {{ $i + 1 }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ $product_name }}
+                                                                    </td>
+
+                                                                    <td>
+                                                                        {{ $qty }} {{ $unitName }}
+                                                                    </td>
+
+                                                                    <td>
+                                                                        {{ $available_qty }} {{ $unitName }}
+                                                                    </td>
+
+                                                                    <td>
+                                                                        {{ $used_qty }} {{ $unitName }}
+                                                                    </td>
+
+                                                                </tr>
+                                                            @endfor
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Note:</strong>
+                                                {!! $finished->finished_note !!}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Status:</strong>
+                                                @if ($finished->status == 1)
+                                                    <span class="badge badge-success">Active</span>
+                                                @else
+                                                    <span class="badge badge-danger">In Active</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-12 col-lg-12 text-center justify-content-center align-self-center">
+                                @if ($finished->finished_image != null && file_exists(public_path('app/finished/' . $finished->finished_image)))
+                                    <img src="{{ asset('public/app/finished/' . $finished->finished_image) }}"
+                                        alt="No image" height="360" width="640">
+                                @endif
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer no-print"><a href="{{ url()->previous() }}" class="btn btn-primary"><i
+                                class="fas fa-long-arrow-alt-left"></i> Go Back
+                        </a>
+                        <a href="javascript:void(0)" class="btn btn-secondary float-right print-btn" id="printMe">
+                            <i class="fas fa-print"></i>
+                            Print</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // CKEDITOR.replace('note');
+        // CKEDITOR.add
+
     </script>
 @endsection

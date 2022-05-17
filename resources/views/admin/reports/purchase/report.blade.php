@@ -1,4 +1,5 @@
-    <div class="card col-md-12 mt-5">
+@if(count($purchases) > 0)
+<div class="card col-md-12 mt-5">
         <div class="card-header">
             <div class="card-tools w-25 float-right">
                 <a href="{{ route('admin.purchases.create') }}" class="btn btn-block btn-primary">
@@ -88,7 +89,9 @@
                                 <a class="btn btn-xs btn-primary" href="{{ route('admin.purchases.show', $c->id) }}">
                                     {{ trans('global.view') }}
                                 </a>
-
+                                <a class="btn btn-xs btn-warning" href="{{ route('admin.purchases.invoice', $c->id) }}">
+                                    {{ trans('Invoice') }}
+                                </a>
                             </td>
                         </tr>
                     @endforeach
@@ -96,3 +99,16 @@
             </table>
         </div>
     </div>
+    @else
+    <div class="col-md-12 mt-5">
+
+        <div role="alert" class="w-100 alert alert-primary alert-dismissible fade show">
+            <strong>
+                <i class="fas fa-folder-open"></i>
+            </strong> Sorry no records found for your filter!
+            <button type="button" data-dismiss="alert" aria-label="Close" class="close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    </div>
+@endif

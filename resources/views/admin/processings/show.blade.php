@@ -83,13 +83,6 @@
     <script>
         // CKEDITOR.replace('note');
         // CKEDITOR.add
-        $(".print-btn").click(function() {
-            $('#contentBox').print({
-                append: "<br/>",
-                prepend: "<br/>",
-                deferred: $.Deferred(),
 
-            });
-        });
     </script>
 @endsection

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FinishedRequest;
@@ -129,7 +129,7 @@ class FinishedController extends Controller
      */
     public function show($id)
     {
-        $finished = Finished::find($id);
+        $finished = Finished::with(['processing','purchase'])->find($id);
         $processings = Processing::get();
 
         return view('admin.finished.show', compact('finished', 'processings'));

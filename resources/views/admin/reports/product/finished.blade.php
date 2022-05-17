@@ -13,7 +13,7 @@
 
     <div class="card">
         <div class="card-header">
-            {{ trans('cruds.purchase.title_singular') }} {{ trans('global.report') }}
+            {{ trans('cruds.finished.title_singular') }} {{ trans('global.report') }}
         </div>
 
         <div class="card-body usersc" style="background: transparent;">
@@ -32,20 +32,17 @@
 
                 <div class="form-group col-md-3">
 
-                    <label class="required" for="supplier">{{ trans('cruds.supplier.title_singular') }}</label>
-                    <select name="supplier" id="supplier"
-                        class="form-control select2 {{ $errors->has('supplier') ? 'is-invalid' : '' }}" required>
+                    <label class="required" for="processing">{{ trans('cruds.processings.title_singular') }}</label>
+                    <select name="processing" id="processing"
+                        class="form-control select2 {{ $errors->has('processing') ? 'is-invalid' : '' }}" required>
                         <option value="">Select</option>
-                        @foreach ($suppliers as $supplier)
-                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
-                        @endforeach
-                        @foreach ($vendors as $vendor)
-                            <option value="{{ $vendor->id }}">{{ $vendor->name }}</option>
+                        @foreach ($processings as $processing)
+                            <option value="{{ $processing->id }}">{{ $processing->processing_code }}</option>
                         @endforeach
                     </select>
-                    @if ($errors->has('supplier'))
+                    @if ($errors->has('processing'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('supplier') }}
+                            {{ $errors->first('processing') }}
                         </div>
                     @endif
                     <span class="help-block">{{ trans('cruds.product.fields.subcategory_helper') }}</span>
@@ -84,7 +81,7 @@
             e.preventDefault();
             let fromDate = $('body').find('#fromDate').val();
             let toDate = $('body').find('#toDate').val();
-            let supplier = $('body').find('#supplier').val();
+            let processing = $('body').find('#processing').val();
 
             $('#fromDate_err').text('');
             $('#toDate_err').text('');
@@ -94,14 +91,14 @@
                     $('#toDate_err').text('Select Different Date');
                 }
                 $.ajax({
-                    url: '{{ route('admin.reports.purchase.getReport') }}',
+                    url: '{{ route('admin.reports.product.getfinishedReport') }}',
                     method: 'POST',
                     datatype: 'html',
                     data: {
                         '_token': "{{ csrf_token() }}",
                         fromDate: fromDate,
                         toDate: toDate,
-                        supplier: supplier,
+                        processing: processing,
                     },
                     success: function(res) {
                         $('body').find('#load_data').html(res);

@@ -13,4 +13,8 @@ class Finished extends Model
     public function processing(){
         return $this->belongsTo(Processing::class,'processing_id');
     }
+
+    public function purchase(){
+        return $this->belongsTo(Purchase::class,'purchase_id');
+    }
 }
